@@ -69,11 +69,11 @@ theme: next
 deploy:
   type: git
   message: ""
-  repo: https://github.com/FrancisKong/franciskong.github.io
-  branch: gh-page
+  repo: git@github.com:FrancisKong/franciskong.github.io.git
+  branch: master
 plugins:
-- hexo-generator-feed
-- hexo-generator-sitemap
+  hexo-generator-feed
+  hexo-generator-sitemap
 sitemap:
   path: sitemap.xml
 feed:
