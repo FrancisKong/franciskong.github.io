@@ -1,0 +1,56 @@
+@charset "UTF-8";
+body{
+	margin: 0;
+	background: rgb(238,238,238);
+	min-width: 980px;
+}
+a{
+	font-family: "宋体";
+    font-size: 14px;
+    color: white;
+    margin: 14px;
+    text-decoration:none;			/*设置链接样式*/
+}
+/*@media screen and (max-width:980px) {
+  #icon {
+  	visibility: hidden;
+  } 媒体查询*/ 			
+.head{
+	background-color: rgb(82,42,92);
+	width: 100%;
+	height: 80px;
+	position: relative;
+}
+#logo{
+	width: 60px;
+	height: 70px;
+	float: left;
+	margin-left: 100px;
+	margin-top: 5px;
+}
+#icon{
+	position: absolute;
+	bottom: 0px;
+	right: 5px;
+}
+.nav{
+	top: 50px;
+	
+	position: absolute;
+	right: 100px;
+}
+
+
+.introduce{
+	text-indent: 2em;
+	width: 600px;
+	position: absolute;
+	left: 50%;
+	margin-left: -300px;
+}
+.main {
+	position: relative;
+	padding: 100px 400px;
+ }
+
+  	
