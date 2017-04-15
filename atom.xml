@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>孔方宇的博客</title>
+  <subtitle>make the world a better place</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="kongfangyu.com/"/>
+  <updated>2017-04-15T09:57:33.000Z</updated>
+  <id>kongfangyu.com/</id>
+  
+  <author>
+    <name>孔方宇</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>跨域方法总结</title>
+    <link href="kongfangyu.com/2016/03/27/cross-domain/"/>
+    <id>kongfangyu.com/2016/03/27/cross-domain/</id>
+    <published>2016-03-27T13:23:40.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h2><hr>
+<p>跨域问题算是一个比较常见的问题，对于不同的场景也有着不同的方法进行跨域。不过，在此之前我们要先了解什么情况算作跨域。</p>
+<blockquote>
+<p>如果两个页面拥有相同的协议（protocol），端口（如果指定），和主机，那么这两个页面就属于同一个源（origin）。</p>
+</blockquote>
+<p>也就是如果上面3个条件只要有一个不一样就算作跨域，我们再结合具体的例子看下。<br>发出请求的地址：<a href="http://exampl.com/index.html，下表是目标地址及对应的结果和解释。" target="_blank" rel="external">http://exampl.com/index.html，下表是目标地址及对应的结果和解释。</a></p>
+<table>
+<thead>
+<tr>
+<th>url</th>
+<th style="text-align:center">结果</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://example.com/other.html" target="_blank" rel="external">http://example.com/other.html</a></td>
+<td style="text-align:center">成功</td>
+</tr>
+<tr>
+<td><a href="http://example.com/page/other.html" target="_blank" rel="external">http://example.com/page/other.html</a></td>
+<td style="text-align:center">成功</td>
+</tr>
+<tr>
+<td><a href="http://sub.example.com/index.html" target="_blank" rel="external">http://sub.example.com/index.html</a></td>
+<td style="text-align:center">失败</td>
+<td style="text-align:center">子域名不同</td>
+</tr>
+<tr>
+<td><a href="http://example.com:8080/index.html" target="_blank" rel="external">http://example.com:8080/index.html</a></td>
+<td style="text-align:center">失败</td>
+<td style="text-align:center">端口号不同</td>
+</tr>
+<tr>
+<td><a href="https://example.com/other.html" target="_blank" rel="external">https://example.com/other.html</a></td>
+<td style="text-align:center">失败</td>
+<td style="text-align:center">协议不同</td>
+</tr>
+<tr>
+<td><a href="http://0.0.0.0/other.html" target="_blank" rel="external">http://0.0.0.0/other.html</a></td>
+<td style="text-align:center">失败</td>
+<td style="text-align:center">域名和域名对应的ip</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h2 id="跨域解决方案"><a href="#跨域解决方案" class="headerlink" title="跨域解决方案"></a>跨域解决方案</h2><hr>
+<p>下面就来介绍一下跨域的解决方案，为了方便，所有的<code>AJAX</code>请求我都用<code>jQuery</code>发起。</p>
+<h3 id="跨域资源共享（CORS）"><a href="#跨域资源共享（CORS）" class="headerlink" title="跨域资源共享（CORS）"></a>跨域资源共享（CORS）</h3><p><code>CORS（Cross-Origin Resource Sharing）</code>跨域资源共享，定义了必须在访问跨域资源时，浏览器与服务器应该如何沟通。CORS背后的基本思想就是使用自定义的HTTP头让浏览器与服务器进行沟通，从而决定请求或响应是应该成功还是失败。<br>比如我们现在想要访问另一个网站<code>other.com</code>上的资源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$.get(&apos;http://other.com&apos;, function() &#123;</div><div class="line">  // do something...</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>服务器返回的资源需要有一个 Access-Control-Allow-Origin 头信息,语法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Access-Control-Allow-Origin: &lt;origin&gt; | *</div></pre></td></tr></table></figure></p>
+<p>origin参数指定一个允许向该服务器提交请求的URI.对于一个不带有credentials的请求,可以指定为’*’,表示允许来自所有域的请求。<br>为了安全起见，我们最好是限制请求的来源，下面就是只允许<code>other.com</code>请求的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Access-Control-Allow-Origin: http://other.com</div></pre></td></tr></table></figure></p>
+<h3 id="通过JSONP跨域"><a href="#通过JSONP跨域" class="headerlink" title="通过JSONP跨域"></a>通过JSONP跨域</h3><blockquote>
+<p>JSONP（JSON with Padding）是资料格式 JSON 的一种“使用模式”，可以让网页从别的网域要资料。</p>
+</blockquote>
+<p>简单来讲就是因为<code>&lt;script&gt;</code>标签不受同源策略限制，动态插入一个<code>&lt;script&gt;</code>标签，并在url中指定callback，然后服务端将数据作为参数传入callback中。所以JSONP是需要服务端进行配合的。<br><code>$.getJSON</code>方法会自动判断是否跨域，如果跨域就通过插入<code>&lt;script&gt;</code>标签的方式加载数据，否则就使用普通的<code>ajax</code>方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$.getJSON(&apos;http://other.com/data?callback=mycallback&apos;, function(data) &#123;</div><div class="line">    // do something...</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>服务端只需要将数据传入<code>mycallback</code>中即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mycallback(&#123; foo: &apos;bar&apos; &#125;);</div></pre></td></tr></table></figure></p>
+<p><code>JSONP</code>的缺点是只支持GET请求，对于POST之类的其它请求就不支持了。</p>
+<h2 id="跨域代理"><a href="#跨域代理" class="headerlink" title="跨域代理"></a>跨域代理</h2><hr>
+<p>通过上面的方法可以看出，要实现跨域交互，必须要对目标服务器有着控制权。不过有的时候我们可能需要获取其他网站的数据，那就只能通过架设服务器代理的方式进行跨域了。下面就推荐一些第三方代理，因为这些代理都是国外的，访问速度可能不太理想（国内还没找到类似的服务），所以有条件最好还是自己搭建服务器吧。<br>要注意的是第三方代理会存在安全性上的问题，<strong>请不要通过第三方代理传递重要数据！</strong></p>
+<h3 id="CORS-Anywhere"><a href="#CORS-Anywhere" class="headerlink" title="CORS Anywhere"></a>CORS Anywhere</h3><p>CORS Anywhere是一个通过添加CORS请求头实现跨域的<code>node.js</code>反向代理（<a href="https://github.com/Rob--W/cors-anywhere/" target="_blank" rel="external">GitHub地址</a>）<br>使用示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$.get(<span class="string">'http://cors-anywhere.herokuapp.com/http://www.baidu.com'</span>), <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(res);</div><div class="line">    &#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="Whatever-Origin"><a href="#Whatever-Origin" class="headerlink" title="Whatever Origin"></a>Whatever Origin</h3><p>Whatever Origin是通过JSONP的方式实现跨域的（<a href="https://github.com/ripper234/Whatever-Origin" target="_blank" rel="external">GitHub地址</a>）。<br>使用示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$.getJSON(<span class="string">'http://whateverorigin.org/get?url='</span> + <span class="built_in">encodeURIComponent</span>(<span class="string">'http://www.baidu.com'</span>) + <span class="string">'&amp;callback=?'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(data.contents);</div><div class="line">    &#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="CORS-Proxy"><a href="#CORS-Proxy" class="headerlink" title="CORS Proxy"></a>CORS Proxy</h3><p>CORS Proxy和上面的不太一样，这是一个可以在你自己机器上方便使用的<code>node.js</code>代理，好处是使用自己的服务器访问速度快，安全性高，前提是你要拥有一台服务器，并在服务器上安装<code>node.js</code>（<a href="https://github.com/gr2m/CORS-Proxy" target="_blank" rel="external">GitHub地址</a>）。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;什么是跨域？&quot;&gt;&lt;a href=&quot;#什么是跨域？&quot; class=&quot;headerlink&quot; title=&quot;什么是跨域？&quot;&gt;&lt;/a&gt;什么是跨域？&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;跨域问题算是一个比较常见的问题，对于不同的场景也有着不同的方法进行跨域。不过，在此之前我们要先了解什么情况算作跨域。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果两个页面拥有相同的协议（protocol），端口（如果指定），和主机，那么这两个页面就属于同一个源（origin）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;也就是如果上面3个条件只要有一个不一样就算作跨域，我们再结合具体的例子看下。&lt;br&gt;发出请求的地址：&lt;a href=&quot;http://exampl.com/index.html，下表是目标地址及对应的结果和解释。&quot;&gt;http://exampl.com/index.html，下表是目标地址及对应的结果和解释。&lt;/a&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;url&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;结果&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://example.com/other.html&quot;&gt;http://example.com/other.html&lt;/a&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;成功&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://example.com/page/other.html&quot;&gt;http://example.com/page/other.html&lt;/a&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;成功&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://sub.example.com/index.html&quot;&gt;http://sub.example.com/index.html&lt;/a&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;失败&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;子域名不同&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://example.com:8080/index.html&quot;&gt;http://example.com:8080/index.html&lt;/a&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;失败&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;端口号不同&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://example.com/other.html&quot;&gt;https://example.com/other.html&lt;/a&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;失败&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;协议不同&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://0.0.0.0/other.html&quot;&gt;http://0.0.0.0/other.html&lt;/a&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;失败&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;域名和域名对应的ip&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+    
+    </summary>
+    
+    
+      <category term="跨域" scheme="kongfangyu.com/tags/%E8%B7%A8%E5%9F%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Git Hook自动部署代码</title>
+    <link href="kongfangyu.com/2016/02/12/git-deploy/"/>
+    <id>kongfangyu.com/2016/02/12/git-deploy/</id>
+    <published>2016-02-12T15:02:12.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在没有接触到<strong>Git Hook</strong>之前，我一直都是在本地将代码push到远程仓库，然后再ssh到服务器上<code>git pull</code>，想起来都心酸。这样手工操作不仅繁琐，还非常容易出错。好在Git为我们提供了hook这种好东西，能够在特定的事件触发时执行我们写好的脚本，实现自动化部署。<br><a id="more"></a></p>
+<h1 id="配置Git仓库"><a href="#配置Git仓库" class="headerlink" title="配置Git仓库"></a>配置Git仓库</h1><hr>
+<h2 id="在服务器上创建一个裸仓库"><a href="#在服务器上创建一个裸仓库" class="headerlink" title="在服务器上创建一个裸仓库"></a>在服务器上创建一个裸仓库</h2><p>首先要在服务器上建立一个裸仓库，假设我们用于存放裸仓库的文件夹是<code>/home/user/repos/</code>，进入到该文件夹，然后使用<code>git init --bare test.git</code>创建裸仓库，这样我们就有了一个叫<code>test.git</code>的裸仓库啦。</p>
+<h2 id="在服务器上创建一个普通Git仓库"><a href="#在服务器上创建一个普通Git仓库" class="headerlink" title="在服务器上创建一个普通Git仓库"></a>在服务器上创建一个普通Git仓库</h2><p>接下来就是在服务器上建立一个普通Git仓库，用于存放网站的源代码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mkdir /home/user/www</div><div class="line"><span class="built_in">cd</span> /home/user/www</div><div class="line">git init</div><div class="line">git <span class="built_in">clone</span> ~/repos/test.git</div></pre></td></tr></table></figure></p>
+<p>##配置Git Hook<br>进入到<code>~/repos/test.git/hooks</code>文件夹，使用<code>vi post-receive</code>创建一个脚本，当你在本地仓库执行<code>git push</code>后就会触发<code>post-receive</code>（<a href="https://git-scm.com/book/zh/v1/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git%E6%8C%82%E9%92%A9" target="_blank" rel="external">关于Git Hok</a>）。<br><code>post-receive</code>的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line"></div><div class="line">unset GIT_DIR</div><div class="line"></div><div class="line">NowPath=`pwd`</div><div class="line">DeployPath=&quot;../../www&quot;</div><div class="line"></div><div class="line">cd $DeployPath</div><div class="line">git add . -A &amp;&amp; git stash</div><div class="line">git pull origin master</div><div class="line"></div><div class="line">#下面两步是我的Node.js应用配置，需要按照你的实际情况改动</div><div class="line">npm install #安装npm包</div><div class="line">pm2 restart server #使用pm2重新启动应用</div><div class="line"></div><div class="line">cd $NowPath</div><div class="line">echo &quot;deploy done&quot;</div><div class="line">exit 0</div></pre></td></tr></table></figure></p>
+<p>默认的情况下，脚本是无法执行的，所以我们需要为这个脚本添加可执行权限<br><code>chmod +x post-receive</code></p>
+<p>##本地仓库配置</p>
+<hr>
+<p>这里的本地仓库就是你本机的仓库，不再是服务器上的了。我们要在原有的Git项目中加入一条新的remote源，以后往这个源推送代码就会自动部署了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git remote add prod user@ip_address/repos/test.git</div><div class="line">git push prod master</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在没有接触到&lt;strong&gt;Git Hook&lt;/strong&gt;之前，我一直都是在本地将代码push到远程仓库，然后再ssh到服务器上&lt;code&gt;git pull&lt;/code&gt;，想起来都心酸。这样手工操作不仅繁琐，还非常容易出错。好在Git为我们提供了hook这种好东西，能够在特定的事件触发时执行我们写好的脚本，实现自动化部署。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="服务器" scheme="kongfangyu.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+      <category term="git" scheme="kongfangyu.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>webpack使用心得</title>
+    <link href="kongfangyu.com/2015/12/27/webpack-learning/"/>
+    <id>kongfangyu.com/2015/12/27/webpack-learning/</id>
+    <published>2015-12-27T11:36:48.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xj5pg.com1.z0.glb.clouddn.com/201512241942.png" alt="此处输入图片的描述"><br><a href="https://webpack.github.io/" target="_blank" rel="external">webpack</a>是最近非常流行的一个模块加载器，它不仅能够像<code>require.js</code>一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。<br><a id="more"></a></p>
+<p>#安装webpack</p>
+<hr>
+<p>首先需要安装<a href="https://nodejs.org" target="_blank" rel="external">Node.js</a><br>初始化项目（这里会要求你回答一系列问题，如果不在意可以一路回车）：<br><code>npm init</code><br>安装webpack，并将依赖关系添加到<code>package.json</code>:<br><code>npm install webpack --save-dev</code></p>
+<p>#目录结构</p>
+<hr>
+<p>项目的目录结构是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">├── src                 #源码目录</div><div class="line">|   ├──js               #存放js文件</div><div class="line">|   |──scss             #存放sass文件</div><div class="line">|   |──images           #存放图片资源文件</div><div class="line">├── dist                #发布目录</div><div class="line">├── index.html          #页面入口</div><div class="line">├── node_modules        #包文件夹</div><div class="line">├── .gitignore     </div><div class="line">├── webpack.config.js   #webpack配置文件</div><div class="line">└── package.json</div></pre></td></tr></table></figure></p>
+<p>#一个简单的webpack</p>
+<hr>
+<p>##配置webpack<br>webpack使用<code>webpack.config.js</code>文件进行项目配置，所以我们需要在项目的根目录下创建这个文件， 一个简单的配置文件如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//webpack.config.js</span></div><div class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="comment">//入口文件配置</span></div><div class="line">    entry: path.resolve(__dirname, <span class="string">'src/js/main.js'</span>),</div><div class="line">    <span class="comment">//入口文件输出配置</span></div><div class="line">    output: &#123;</div><div class="line">        <span class="comment">//输出路径</span></div><div class="line">        path: path.resolve(__dirname, <span class="string">'dist/js'</span>),</div><div class="line">        <span class="comment">//输出后的文件名</span></div><div class="line">        filename: <span class="string">'bundle.js'</span>,</div><div class="line">    &#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>##启动webpack<br>命令行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">webpack           //最基本的webpack启动方法</div><div class="line">webpack -p        //对打包后的文件进行压缩，用于生产环境</div><div class="line">webpack -w        //监视文件改动，实时进行打包更新</div><div class="line">webpack -d        //让他生成SourceMaps，方便调试</div></pre></td></tr></table></figure></p>
+<p>成功运行命令之后就会发现在<strong>dist</strong>文件夹下生成了<strong>bundle.js</strong><br>之后在html文件中引入就行<br><code>&lt;script src=&quot;./dist/bundle.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>#配置loaders</p>
+<hr>
+<p>webpack提供了许多的loader用于加载不同的文件，这也是webpack的强大之处，有了这些loader，我们就可以使用最新的ES6/7语法写js，用SASS/LESS写css。下面介绍我常用的loader，更多的loader<a href="http://webpack.github.io/docs/list-of-loaders.html" target="_blank" rel="external">查看这里</a>。</p>
+<h2 id="加载JS文件"><a href="#加载JS文件" class="headerlink" title="加载JS文件"></a>加载JS文件</h2><p>ES6已经发布了有些时间了，新的ES7也正在制定中。作为新时代的好青年，我们怎能不去试试新的东西，只是目前的大多数浏览器对于ES6的支持并不完善，为此我们需要使用babel将ES6转换成ES5。关于ES6的教程，可以参考阮一峰的<a href="http://es6.ruanyifeng.com/" target="_blank" rel="external">《ECMAScript6入门》</a>。<br>我在项目中通常会使用bower管理插件，所以还需要将bower_components添加到搜索路径中，并使用插件从<strong>bower.json</strong>文件中指定main属性作为插件的入口。<br>安装babel相关的包<br><code>npm install babel-loader babel-core babel-preset-es2015 --save-dev</code><br>加入babel-loader，因为npm包是用ES5编写，不需要对其进行编译，所以使用<code>exclude</code>将<code>node_modules</code>文件夹排除在外，也可以加快编译速度。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>: &#123;</div><div class="line">    <span class="attr">loaders</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</div><div class="line">            <span class="attr">loader</span>: <span class="string">'babel-loader'</span>,</div><div class="line">            <span class="attr">exclude</span>: <span class="string">'/node_modules/'</span>,</div><div class="line">            <span class="attr">query</span>: &#123;</div><div class="line">                <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,</div><div class="line">                <span class="attr">presets</span>: [<span class="string">'es2015'</span>],</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">    ]</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<p>将<code>bower_components</code>加入到默认搜索路径中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">resolve: &#123;</div><div class="line">    <span class="attr">root</span>: [</div><div class="line">        path.join(__dirname, <span class="string">"bower_components"</span>)</div><div class="line">    ]</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<p>从bower.json 的main属性中指定插件的入口<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line">plugins: [</div><div class="line">    <span class="keyword">new</span> webpack.ResolverPlugin(</div><div class="line">        <span class="keyword">new</span> webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(<span class="string">".bower.json"</span>, [<span class="string">"main"</span>])</div><div class="line">    ),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h2 id="加载样式文件"><a href="#加载样式文件" class="headerlink" title="加载样式文件"></a>加载样式文件</h2><p>为了加载css文件我们需要使用<code>style-loader</code>和<code>css-loader</code><br><code>npm install style-loader css-loader --save-dev</code><br>作为一名sass爱好者，脱离了sass写样式就各种不舒服斯基，因此我们需要<code>sass-loader</code><br><code>npm install sass-loader --save-dev</code><br>同时我们还可以使autoprefixer自动补全浏览器前缀，省去了为了浏览器兼容性写各种前缀的麻烦。关于autoprefixer的配置可以参考<a href="https://github.com/passy/autoprefixer-loader" target="_blank" rel="external">这里</a><br><code>npm install autoprefixer-loader --save-dev</code></p>
+<p>不同的loader之间用<strong>!</strong>号连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123; </div><div class="line">    test: /\.scss$/, </div><div class="line">    loader: &apos;style!css!autoprefixer?browsers=last 2 version!sass&apos; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当我们使用<code>require(&#39;../scss/style.scss&#39;)</code>加载样式文件时，则会将样式文件直接使用<code>&lt;style&gt;</code>标签插入到HTML文件中，不过有的时候我们可能还是希望将样式作为css文件导出，病使用<code>&lt;link&gt;</code>引入，这时候就需要插件配合了。<br>安装插件<br><code>npm install extract-text-webpack-plugin --save-dev</code><br>将插件添加到配置文件中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">"extract-text-webpack-plugin"</span>);</div><div class="line"><span class="comment">//...省略其它代码</span></div><div class="line"><span class="built_in">module</span>: &#123;</div><div class="line">        <span class="attr">loaders</span>: [</div><div class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>, <span class="attr">loader</span>: ExtractTextPlugin.extract(<span class="string">"style-loader"</span>, <span class="string">"css-loader!sass-loader"</span>)&#125;,</div><div class="line"><span class="attr">plugins</span>: [</div><div class="line">        <span class="keyword">new</span> ExtractTextPlugin(<span class="string">"[name].css"</span>)</div><div class="line">    ]</div></pre></td></tr></table></figure></p>
+<p>在ExtractTextPlugin的extract方法有两个参数，第一个参数是经过编译后通过<code>style-loader</code>单独提取出文件来，而第二个参数就是用来编译代码的loader。<br>如果需要将所有样式文件打包成一个文件，加一个参数即可。<br><code>new ExtractTextPlugin(&quot;style.css&quot;, {allChunks: true})</code></p>
+<p>##加载图片资源<br>对于webpack来说，所有的资源都是可以作为模块加载的，图片也是一样。<br>安装loader<br><code>npm install url-loader</code><br>添加到配置文件<br><code>{ test: /\.(jpe?g|png)$/, loader: &quot;url?limit=8192&quot; }</code><br><code>?limit</code>是指当图片文件小于8kb时就会将图片转换成base64编码，我们可以在js中使用<code>require()</code>引入。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var img = document.createElement(&quot;img&quot;);</div><div class="line">img.src = require(&apos;../images/xxx.png&apos;);</div></pre></td></tr></table></figure></p>
+<p>#其它</p>
+<hr>
+<h2 id="多个入口"><a href="#多个入口" class="headerlink" title="多个入口"></a>多个入口</h2><p>有时候我们可能一个项目中有着许多的页面，每个页面加载相对应的JS文件，这时候我们就需要添加多个入口文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//webpack.config.js</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    entry: [</div><div class="line">        index: &apos;src/js/index.js&apos;,</div><div class="line">        content: &apos;src/js/content.js&apos;</div><div class="line">    ]</div><div class="line">    output: &#123;</div><div class="line">        path: &apos;dist&apos;,</div><div class="line">        filename: &apos;[name].bundle.js&apos;, </div><div class="line">    &#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>这样就会为每个入口都生成对应构建好的文件，index页面就是<code>index.bundel.js</code>。</p>
+<p>##使用别名<br>引入文件的时候需要写出那个文件所在的路径，对于一些目录结构复杂的项目可能会比较麻烦，这时候我们就可以给文件夹取个别名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">//webpack.config.js</div><div class="line">var path = require(&apos;path&apos;);</div><div class="line"></div><div class="line">resolve: &#123;</div><div class="line">        alias: &#123;</div><div class="line">            js: path.join(__dirname, &quot;src/js&quot;),</div><div class="line">            scss: path.join(__dirname, &apos;src/scss&apos;),</div><div class="line">            img: path.join(__dirname, &apos;src/iamges&apos;),</div><div class="line">        &#125;</div><div class="line">    &#125;,</div></pre></td></tr></table></figure></p>
+<p>使用前我们是这样引入样式的<br><code>require(&#39;../scss/style.scss&#39;)&#39;</code><br>使用后是这样<br><code>require(&#39;scss/style.scss&#39;)</code></p>
+<h2 id="代码压缩"><a href="#代码压缩" class="headerlink" title="代码压缩"></a>代码压缩</h2><p>当代码用于生产环境时，通常都要对代码进行压缩，以减少文件体积。webpack提供了<strong>UglifyJsPlugin</strong>用于压缩、混淆代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line">plugins: [</div><div class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</div><div class="line">      <span class="attr">compress</span>: &#123;</div><div class="line">        <span class="attr">warnings</span>: <span class="literal">false</span></div><div class="line">      &#125;</div><div class="line">    &#125;),</div><div class="line">]</div></pre></td></tr></table></figure>
+<h1 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h1><hr>
+<p>最后给出一个完整的wepack配置文件作为参考<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">var path = require(&apos;path&apos;);</div><div class="line">var webpack = require(&apos;webpack&apos;);</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    entry: [</div><div class="line">        &apos;./src/js/main.js&apos;,</div><div class="line">    ],</div><div class="line">    output: &#123;</div><div class="line">        path: path.join(__dirname, &apos;build/js&apos;),</div><div class="line">        filename: &apos;[name].bundle.js&apos;,</div><div class="line">    &#125;,</div><div class="line">    module: &#123;</div><div class="line">        loaders: [</div><div class="line">            &#123;</div><div class="line">                test: /\.js$/,</div><div class="line">                loader: &apos;babel-loader&apos;,</div><div class="line">                //只编译src目录下文件</div><div class="line">                exclude: &apos;/node_modules/&apos;,</div><div class="line">                query: &#123;</div><div class="line">                    cacheDirectory: true,</div><div class="line">                    presets: [&apos;es2015&apos;],</div><div class="line">                &#125;</div><div class="line">            &#125;,</div><div class="line">            &#123; test: /\.css$/, loader: &apos;style!css!autoprefixer?browsers=last 2 version&apos; &#125;,</div><div class="line">            &#123; test: /\.scss$/, loader: &apos;style!css!autoprefixer?browsers=last 2 version!sass&apos; &#125;,</div><div class="line">            //使用base64编码加载小于8kb的图片</div><div class="line">            &#123; test: /\.(jpe?g|png)$/, loader: &quot;url?limit=8192&quot; &#125;,</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    resolve: &#123;</div><div class="line">        //可以使用 require(&apos;main&apos;) 替代 require(&apos;main.js&apos;)</div><div class="line">        extensions: [&apos;&apos;, &apos;.js&apos;],</div><div class="line">        //添加默认搜索路径</div><div class="line">        root: [</div><div class="line">            path.join(__dirname, &quot;bower_components&quot;)</div><div class="line">        ],</div><div class="line">        //文件夹别名</div><div class="line">        alias: &#123;</div><div class="line">            js: path.join(__dirname, &quot;src/js&quot;),</div><div class="line">            scss: path.join(__dirname, &apos;src/sass&apos;),</div><div class="line">            img: path.join(__dirname, &apos;src/img&apos;),</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    plugins: [</div><div class="line">        //从bower.json main属性指定文件入口</div><div class="line">        new webpack.ResolverPlugin(</div><div class="line">            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(&quot;.bower.json&quot;, [&quot;main&quot;])</div><div class="line">        ),</div><div class="line">        //代码压缩</div><div class="line">        new webpack.optimize.UglifyJsPlugin(&#123;</div><div class="line">            compress: &#123;</div><div class="line">                warnings: false</div><div class="line">            &#125;</div><div class="line">        &#125;),</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://7xj5pg.com1.z0.glb.clouddn.com/201512241942.png&quot; alt=&quot;此处输入图片的描述&quot;&gt;&lt;br&gt;&lt;a href=&quot;https://webpack.github.io/&quot;&gt;webpack&lt;/a&gt;是最近非常流行的一个模块加载器，它不仅能够像&lt;code&gt;require.js&lt;/code&gt;一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="webpack" scheme="kongfangyu.com/tags/webpack/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在阿里云上配置Node.js环境</title>
+    <link href="kongfangyu.com/2015/12/03/aliyun-nodejs/"/>
+    <id>kongfangyu.com/2015/12/03/aliyun-nodejs/</id>
+    <published>2015-12-03T13:04:00.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近买了个阿里云服务器用于做一些小项目，系统选的是CentOS 7 ,因为是第一次配置服务器环境，并且之前也没接触过Linux系统，整个过程可以说是困难重重，好在最后配置好了。写下这篇文章用作自己以后参考，也希望能够给大家一点帮助。<br>PS:下面的操作都是在Windows上执行<br><a id="more"></a></p>
+<p>#一、登录服务器</p>
+<hr>
+<ol>
+<li>因为我的电脑是Windows系统，所以下了个<a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" target="_blank" rel="external">putty</a>用于登录服务器，关于putty的用法<a href="http://www.putty.ws/Putty-wanquanshiyong" target="_blank" rel="external">参考这里</a>。</li>
+<li>使用<code>yum -y update</code>把服务器上的程序更新一遍。</li>
+<li>为了安全起见，最好创建一个普通权限的用户用于运行程序，可以将下面的<code>username</code>换成任意的名字<br><code>user add username</code></li>
+<li>给新用户分配一个密码，输入命令之后就会提示你输入新密码，然后按提示操作就好了<br><code>passwd username</code></li>
+</ol>
+<p>#二、安装Node.js</p>
+<hr>
+<ol>
+<li>因为是个人项目，所以我使用的是最新版本的node.js，如果需要下载特定版本，只需要把<code>latest</code>换成相应的版本号就可以了<br><code>wget http://nodejs.org/dist/node-latest.tar.gz</code></li>
+<li><p>解压下载的文件，并进入解压后的文件夹：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar zxf node-v*.tar.gz </div><div class="line">cd node-v*</div></pre></td></tr></table></figure>
+</li>
+<li><p>预编译<br><code>./configure</code></p>
+</li>
+<li>编译并安装<br><code>make &amp;&amp; make install</code></li>
+<li>等待编译完成，我当时编译用了8分钟左右，编译完成后可以用下面命令测试有没有安装成功：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node -v</div><div class="line">npm -v</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果输出了相应的版本号就表示nodejs已经安装成功了。</p>
+<p>#三、安装Nginx<br>HTTP请求是80端口，但是在Linux上非root权限是无法使用1024以下端口的，并且因为安全原因，<a href="http://askubuntu.com/questions/16178/why-is-it-bad-to-login-as-root" target="_blank" rel="external">最好不要使用root权限登录服务器</a>，所以无法直接用node.js程序监听80端口。因此我们需要使用<a href="http://nginx.org/en/" target="_blank" rel="external">Nginx</a>给node.js做反向代理，将80端口指向应用程序监听的端口(如node.js默认的3000端口)。</p>
+<ol>
+<li>添加Nginx仓库<br><code>sudo yum install epel-release</code></li>
+<li>下载Nginx<br><code>sudo yum install nginx</code></li>
+<li>修改Nginx配置文件<br><code>sudo vi /etc/nginx/conf.d/default.conf</code><br>加入下面这段代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">location /&#123;</div><div class="line">    proxy_pass http://127.0.0.1:3000;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这段代码就是将所有访问<a href="#">http://yourdomain.com/</a>的请求都转到3000端口</p>
+<ol>
+<li>启动/重启服务器<br><code>sudo systemctl start/restart nginx</code></li>
+</ol>
+<p>#四、安装Forever后台管理器<br>通常我们会使用<code>node app.js</code>启动应用，如果这样做，一旦我们关闭ssh连接，那么程序就会终止运行。我们可以用npm模块Forever解决这个问题。</p>
+<ol>
+<li><p>全局安装Forever<br><code>sudo npm install forever -g</code><br>在这里我碰到了个问题：<code>npm command not found</code><br>解决方案如下(<a href="http://stackoverflow.com/questions/4976658/on-ec2-sudo-node-command-not-found-but-node-without-sudo-is-ok" target="_blank" rel="external">来自Stackoverflow</a>)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /usr/local/bin/node /usr/bin/node</div><div class="line">sudo ln -s /usr/local/lib/node /usr/lib/node</div><div class="line">sudo ln -s /usr/local/bin/npm /usr/bin/npm</div><div class="line">sudo ln -s /usr/local/bin/node-waf /usr/bin/node-waf</div></pre></td></tr></table></figure>
+</li>
+<li><p>开启进程<br><code>forever start app.js</code><br>如果是用<code>npm start</code>启动引用，则可以使用下面的命令，把目录换成你的项目文件夹路径或者在项目文件夹下使用<strong>./</strong>作为路径<br><code>forever start -c &quot;npm start&quot; /path/to/app/dir/</code></p>
+</li>
+<li><p>查看进程<br><code>forever list</code></p>
+</li>
+</ol>
+<p>#五、免密码登录服务器</p>
+<hr>
+<p>在使用ssh登录服务时，每次都需要输入密码，这样太麻烦了，好在ssh提供了公钥登录，可以省去输入密码这一步骤。<br>如果没有现成的公钥可以生成一个新的公钥：<br><code>ssh-keygen</code><br>运行上面的命令之后只需要一路回车就好了，不过有一个步骤是输入密钥口令，如果担心安全问题，可以设置密钥口令，如果直接回车，那么下次登录也可以直接按回车，不需要输入密码。<br>接下来就是将公钥传送到远程主机上了，在本机执行下面命令(windows only)，将下面的<code>C:/Users/.ssh</code>替换成你的ssh公钥所在的路径，<code>username</code>替换成你的用户名，<code>127.0.0.1</code>替换成的你的服务器ip地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cat C:/Users/.ssh/id_rsa.pub | ssh username@127.0.0.1 &quot;umask 077; test -d ~/.ssh || mkdir ~/.ssh ;</div><div class="line">cat &gt;&gt; ~/.ssh/aut horized_keys&quot;</div></pre></td></tr></table></figure></p>
+<p>现在，node.js环境已经配置好了，现在就专注研究自己的应用吧！</p>
+<p>参考资料：</p>
+<ul>
+<li><a href="http://bbs.aliyun.com/read/146189.html" target="_blank" rel="external">在阿里云上安装和运行Node.js</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html" target="_blank" rel="external">SSH原理与应用(一)</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-centos-7" target="_blank" rel="external">How To Install Nginx on CentOS 7</a></li>
+<li><a href="https://cnodejs.org/topic/5059ce39fd37ea6b2f07e1a3" target="_blank" rel="external">阿里云主机Nginx下配置NodeJS、Express和Forever</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近买了个阿里云服务器用于做一些小项目，系统选的是CentOS 7 ,因为是第一次配置服务器环境，并且之前也没接触过Linux系统，整个过程可以说是困难重重，好在最后配置好了。写下这篇文章用作自己以后参考，也希望能够给大家一点帮助。&lt;br&gt;PS:下面的操作都是在Windows上执行&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="阿里云" scheme="kongfangyu.com/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+    
+      <category term="node.js" scheme="kongfangyu.com/tags/node-js/"/>
+    
+      <category term="服务器" scheme="kongfangyu.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在Visual Studio Code中启用Node.js智能提示</title>
+    <link href="kongfangyu.com/2015/09/21/vscode-intelligence/"/>
+    <id>kongfangyu.com/2015/09/21/vscode-intelligence/</id>
+    <published>2015-09-21T13:25:28.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>#前言</p>
+<hr>
+<p>最近一直在使用<a href="https://www.visualstudio.com/" target="_blank" rel="external">visual studio code(以下简称vsc)</a>作为我的主力编辑器，不过最近在使用vsc写node.js代码时却碰到了一个问题：竟然没有智能提示！！！对于我这种离开智能提示就写不出代码的人简直不能忍，于是赶紧去官网查了一下文档。原来vsc使用的是<strong>TypeScript definition</strong>文件为vsc提供基于JavaScript框架的智能提示以及在使用错误的API时的警告。<br><a id="more"></a><br><br></p>
+<p>#步骤</p>
+<hr>
+<p>我们可以使用<a href="http://definitelytyped.org/tsd/" target="_blank" rel="external">TypeScript Definition Manager (TSD)</a>来搜索和安装TypeScript definition文件，接下来就以node.js为例：</p>
+<ol>
+<li>使用npm全局安装TSD：<code>npm install -g tsd</code></li>
+<li>在项目的根目录中安装node.js的<code>.d.ts</code>文件：<code>tsd query node --action install</code></li>
+<li>安装后你就会发现在你的目录中多了一个<code>.typings</code>文件夹，这个文件夹中就是下载的<code>.d.ts</code>文件，最后在相应的文件中引入node.js的<code>.d.ts</code>文件：<br><code>/// &lt;reference path=&quot;typings/node/node.d.ts&quot;/&gt;</code></li>
+</ol>
+<p><strong>更简单的方法</strong><br>如果每次都需要去下载再引入文件也太麻烦，vsc也给我们提供一个简便的方法，我们可以在敲下对应的Framework,Runtime的全局变量后(例如node.js的<code>__dirname</code>,Angular的<code>angular</code>)，再按下<code>ctrl+k</code>就会出现下面的黄色小灯泡。<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/20150921203737.jpg" alt=""><br>点击灯泡后就会出现相应下载选项<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/20150921203749.jpg" alt=""><br>选择后vsc就会将下载的<code>.d.ts</code>文件放在<code>.typings</code>文件夹中，然后就可以尽情的敲代码了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#前言&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;最近一直在使用&lt;a href=&quot;https://www.visualstudio.com/&quot;&gt;visual studio code(以下简称vsc)&lt;/a&gt;作为我的主力编辑器，不过最近在使用vsc写node.js代码时却碰到了一个问题：竟然没有智能提示！！！对于我这种离开智能提示就写不出代码的人简直不能忍，于是赶紧去官网查了一下文档。原来vsc使用的是&lt;strong&gt;TypeScript definition&lt;/strong&gt;文件为vsc提供基于JavaScript框架的智能提示以及在使用错误的API时的警告。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="node.js" scheme="kongfangyu.com/tags/node-js/"/>
+    
+      <category term="visual stuio code" scheme="kongfangyu.com/tags/visual-stuio-code/"/>
+    
+      <category term="智能提示" scheme="kongfangyu.com/tags/%E6%99%BA%E8%83%BD%E6%8F%90%E7%A4%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Javascript闭包学习笔记</title>
+    <link href="kongfangyu.com/2015/08/30/js-closure/"/>
+    <id>kongfangyu.com/2015/08/30/js-closure/</id>
+    <published>2015-08-30T15:01:50.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="#什么是闭包?"></a>#什么是闭包?</h2><p>对于闭包，维基百科是这样解释的：</p>
+<blockquote>
+<p>在计算机科学中，闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。</p>
+</blockquote>
+<p>简单来说，就是函数可以使用函数之外定义的变量。<br><a id="more"></a><br>考虑如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">    var n=100;</div><div class="line">    function func()&#123;</div><div class="line">        alert(n);</div><div class="line">    &#125;</div><div class="line">    return func();</div><div class="line">&#125;</div><div class="line">init();    //100</div></pre></td></tr></table></figure></p>
+<p>在上面的代码中，函数func是定义在init中的内部函数。函数func中没有定义任何变量，却可以访问到外部函数的变量，即可以使用变量n。这就是Javascript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。<br>再来看下面这段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">    var n=100;</div><div class="line">    function func()&#123;</div><div class="line">        alert(n);</div><div class="line">    &#125;</div><div class="line">    return func;</div><div class="line">&#125;</div><div class="line">init()();    //100</div></pre></td></tr></table></figure></p>
+<p>与之前的代码不同，在这段代码中，函数init返回的是一个函数对象而不是直接返回结果。虽然执行后的结果是一样的，但实际上这段代码中的函数func形成了一个闭包，变量n也被保存下来和函数一同存在。<br><br></p>
+<p>#闭包的作用</p>
+<hr>
+<p><strong>1.保存变量</strong><br>闭包有着许多的用途，最大的用处是两个，一个是可以读取函数内部的变量，另一个就是可以把这些变量始终保存在内存中。<br>这句话什么意思？来看下面这段代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">    var n=100;</div><div class="line">    function func()&#123;</div><div class="line">		n+=1;</div><div class="line">        alert(n);</div><div class="line">    &#125;</div><div class="line">    return func;</div><div class="line">&#125;</div><div class="line">var result =init();</div><div class="line">result(); //101</div><div class="line">result(); //102</div></pre></td></tr></table></figure></p>
+<p>在上面的代码中，result函数一共运行了两次，第一次是101，第二次是102.。这可以说明函数init中的局部变量n在函数调用后没有自动清除，而是保存在了内存中。<br><strong>2.在循环中创建闭包</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function output() &#123;</div><div class="line">	for (var i = 0; i &lt;100; i++) &#123;</div><div class="line">		setTimeout(function()&#123;</div><div class="line">			console.log(i);</div><div class="line">		&#125;,100);</div><div class="line">	&#125;	 	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行上面这段代码后，输出的并不是我们所期望的值(0~99)，而是输出一百次100。这是因为在循环中创建的匿名函数共享同一个环境，也就是共享同一个变量i，而当<code>console.log</code>被调用时，循环已经结束了，所以匿名函数中i也修改成了100。<br>为了获得正确的值，我们需要进行一些改动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function output() &#123;</div><div class="line">	for (var i = 0; i &lt;100; i++) &#123;</div><div class="line">		setTimeout((function(e) &#123;</div><div class="line">			return function()&#123;</div><div class="line">				console.log(e);</div><div class="line">			&#125;</div><div class="line">		&#125;)(i), 100);</div><div class="line">	&#125;	 	</div><div class="line">&#125;</div><div class="line">output();</div></pre></td></tr></table></figure></p>
+<p>这时的输出才会是我们想要的结果，在这段代码中我们创建了一个匿名包装器(能够立即执行的匿名函数)，并在其中返回了一个函数。因为外部的匿名函数会立即执行，并把i作为它的参数，所以函数内的 e 变量就拥有了 i 的一个拷贝。<br>当传递给 <code>setTimeout</code>的匿名函数执行时，它就拥有了对e的引用，而i是不会被外层的循环改变的。<br><br></p>
+<p>#闭包的注意事项</p>
+<hr>
+<ol>
+<li>由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</li>
+<li>闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</li>
+</ol>
+<p><br></p>
+<p>#结语</p>
+<hr>
+<p>闭包是Javascript中一个非常复杂的特性，花了很长的时间去学习这一特性，在写这篇文章时也是翻阅很多资料，但是对于闭包还是感觉非常困惑。所以，如果你发现这篇文章的不足之处或者一些其它方面的问题都可以使用邮件与我交流。</p>
+<p><strong>参考资料：</strong></p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures" target="_blank" rel="external">闭包|MDN</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank" rel="external">学习Javascript闭包 by 阮一峰</a></li>
+<li><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.closures" target="_blank" rel="external">Javascript秘密花园</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;什么是闭包&quot;&gt;&lt;a href=&quot;#什么是闭包&quot; class=&quot;headerlink&quot; title=&quot;#什么是闭包?&quot;&gt;&lt;/a&gt;#什么是闭包?&lt;/h2&gt;&lt;p&gt;对于闭包，维基百科是这样解释的：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在计算机科学中，闭包（Closure）是词法闭包（Lexical Closure）的简称，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创造它的环境也不例外。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;简单来说，就是函数可以使用函数之外定义的变量。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="kongfangyu.com/tags/javascript/"/>
+    
+      <category term="闭包" scheme="kongfangyu.com/tags/%E9%97%AD%E5%8C%85/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript原型学习笔记</title>
+    <link href="kongfangyu.com/2015/06/07/js-prototype/"/>
+    <id>kongfangyu.com/2015/06/07/js-prototype/</id>
+    <published>2015-06-07T11:31:28.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>继承是面向对象语言的重要特性之一，但JavaScript的继承机制和其它的面向对象语言的继承不太一样，JS当中没有类这个概念，虽然class是个关键字，不能用作变量名。对于有其它OOP编程基础的人来说，在学习JS原型继承的时会候感觉非常奇怪。JS是用<strong>原型链</strong>作为实现继承的主要方法，类似于数据结构中的链表。<br>JS中的每个对象都有一个内部私有的链接指向另一个对象，这个对象就是原对象的原型。这个原型对象也有自己的原型，直到对象的原型为 null 为止（也就是没有原型）。这种一级一级的链结构就称为原型链。<br><a id="more"></a><br><br></p>
+<p>#创建对象</p>
+<hr>
+<p><strong>使用构造函数创建对象</strong><br>JS的构造函数和其它语言的构造函数是不一样的，只要使用了<strong>new</strong>运算符来作用这个函数时，它就可以被称为构造函数。构造函数和普通的函数的不同之处就是构造函数是无反函数，另外就是构造函数的命名虽然没有强制规定，但构造函数的命名通常采用首字母大写，以便与普通函数区分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Calculator(a,b)&#123;</div><div class="line">	this.a=a;</div><div class="line">	this.b=b;</div><div class="line">&#125;</div><div class="line">Calculator.prototype=&#123;</div><div class="line">	add:function () &#123;</div><div class="line">		return this.a+this.b;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">var a=new Calculator(4,5);</div><div class="line">alert(a.__proto__===Calculator.prototype);		//true</div></pre></td></tr></table></figure></p>
+<p><strong>使用Object.create创建对象</strong><br>ECMAScript 5 中引入了一个新方法：<a href="https://developer.mozilla.org/zh-cn/JavaScript/Reference/Global_Objects/Object/create" target="_blank" rel="external">Object.create</a>。可以调用这个方法来创建一个新对象。新对象的原型就是调用 create方法时传入的第一个参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Calculator(a,b)&#123;</div><div class="line">	this.a=a;</div><div class="line">	this.b=b;</div><div class="line">&#125;</div><div class="line">Calculator.prototype=&#123;</div><div class="line">	add:function () &#123;</div><div class="line">		return this.a+this.b;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">var a=Object.create(Calculator.prototype);</div><div class="line">alert(a.__proto__===Calculator.prototype);		//true</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<p>#原型链</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">function Foo() &#123;</div><div class="line">    this.value = 42;</div><div class="line">&#125;</div><div class="line">Foo.prototype = &#123;</div><div class="line">    method: function() &#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">function Bar() &#123;&#125;</div><div class="line"></div><div class="line">// 设置Bar的prototype属性为Foo的实例对象</div><div class="line">Bar.prototype = new Foo();</div><div class="line">Bar.prototype.foo = &apos;Hello World&apos;;</div><div class="line"></div><div class="line">// 修正Bar.prototype.constructor为Bar本身</div><div class="line">Bar.prototype.constructor = Bar;</div><div class="line"></div><div class="line">var test = new Bar() // 创建Bar的一个新实例</div><div class="line"></div><div class="line">// 原型链</div><div class="line">test [Bar的实例]</div><div class="line">    Bar.prototype [Foo的实例] </div><div class="line">        &#123; foo: &apos;Hello World&apos; &#125;</div><div class="line">        Foo.prototype</div><div class="line">            &#123;method: ...&#125;;</div><div class="line">            Object.prototype</div><div class="line">                &#123;toString: ... /* etc. */&#125;;</div></pre></td></tr></table></figure>
+<p>上面的例子中，test 对象从 Bar.prototype 和 Foo.prototype 继承下来；因此， 它能访问 Foo 的原型方法 method。同时，它也能够访问那个定义在原型上的 Foo 实例属性 value。 需要注意的是 new Bar() 不会创造出一个新的 Foo 实例，而是 重复使用它原型上的那个实例；因此，所有的 Bar 实例都会共享相同的 value 属性。<br><strong>性能</strong><br>在原型链上查找属性比较耗时，对性能有副作用，这在性能要求苛刻的情况下很重要。另外，试图访问不存在的属性时会遍历整个原型链,并返回undefined。当使用for in循环遍历对象的属性时，原型链上的所有属性都将被访问。<br><strong>hasOwnProperty</strong><br>如果需要检测一个属性自身定义的还是原型链上，可以使用Object.prototype的<a href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty" target="_blank" rel="external">hasOwnProperty</a>，该方法是 JS中唯一一个只涉及对象自身属性而不会遍历原型链的方法。<br><br></p>
+<p>#小结</p>
+<hr>
+<p>在上面的代码中，我有使用<code>__proto__</code>这个属性，但这并不是标准的用法。使用这种写法，会让子类能够修改父类的原型链，在大多数时候，这不是想要的结果。所以在平时编码的中，要尽量避免这种写法。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;继承是面向对象语言的重要特性之一，但JavaScript的继承机制和其它的面向对象语言的继承不太一样，JS当中没有类这个概念，虽然class是个关键字，不能用作变量名。对于有其它OOP编程基础的人来说，在学习JS原型继承的时会候感觉非常奇怪。JS是用&lt;strong&gt;原型链&lt;/strong&gt;作为实现继承的主要方法，类似于数据结构中的链表。&lt;br&gt;JS中的每个对象都有一个内部私有的链接指向另一个对象，这个对象就是原对象的原型。这个原型对象也有自己的原型，直到对象的原型为 null 为止（也就是没有原型）。这种一级一级的链结构就称为原型链。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="kongfangyu.com/tags/javascript/"/>
+    
+      <category term="原型" scheme="kongfangyu.com/tags/%E5%8E%9F%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript作用域学习笔记</title>
+    <link href="kongfangyu.com/2015/05/27/js-scope/"/>
+    <id>kongfangyu.com/2015/05/27/js-scope/</id>
+    <published>2015-05-27T12:14:26.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><br></p>
+<p>#JavaScript作用域</p>
+<hr>
+<p>在JavaScript中，变量的作用域分为全局作用域和局部作用域两种。<br><strong>全局作用域</strong><br>全局变量的作用域是当前文档中整个脚本区域，也就是在JS程序中的任何位置都可以使用这个变量。一般来说，以下几种情形拥有全局作用域：</p>
+<ol>
+<li>最外层函数和在最外层函数外面定义的变量拥有全局作用域，例如：<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var name=&quot;Francis&quot;;</div><div class="line">function func() &#123;</div><div class="line">	var newName=&quot;Frank&quot;;</div><div class="line">	alert(name);</div><div class="line">&#125;</div><div class="line">alert(name); //Francis</div><div class="line">func(); //Frank</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>2.所有末定义直接赋值的变量自动声明为拥有全局作用域，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function func() &#123;</div><div class="line">	var newName=&quot;Frank&quot;;</div><div class="line">	name=&quot;Francis&quot;;</div><div class="line">	alert(newName);</div><div class="line">&#125;</div><div class="line">alert(name); //Francis</div><div class="line">func(); //Frank</div></pre></td></tr></table></figure></p>
+<p>3.所有window对象的属性拥有全局作用域<br>一般情况下，window对象的内置属性都拥有全局作用域，例如window.name、window.location、window.top等等。<br><strong>局部作用域</strong><br>局部变量的作用域是这个变量所在的函数体，只在函数内部起作用。在函数内部中，局部变量比同名的全局变量优先级高。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">name=&quot;Francis&quot;;</div><div class="line">function func() &#123;</div><div class="line">	var name=&quot;Frank&quot;;</div><div class="line">	var newName=&quot;Frank&quot;;</div><div class="line">	alert(name);</div><div class="line">&#125;</div><div class="line">func(); //Frank</div><div class="line">alert(newName) //脚本错误</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<p>#JavaScript作用域链</p>
+<hr>
+<p>在JS中，一切都是对象，<strong>函数也是对象</strong>，可以像其它普通对象一样添加属性和方法等。在每次调用一个函数时，就会进入一个函数的作用域，当从函数返回以后，就返回调用前的作用域。<br>JS的语法风格和C/C++类似,但作用域的实现却和C/C++不同，并非用“堆栈”方式，而是使用列表，具体过程如下(ECMA262中所述):</p>
+<ul>
+<li>任何执行上下文时刻的作用域,都是由作用域链(scope chain)来实现。</li>
+<li>在一个函数被定义的时候, 会将它定义时刻的scope chain链接到这个函数对象的[[scope]]属性。</li>
+<li>在一个函数对象被调用的时候，会创建一个活动对象(activation object)，该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后对于每一个函数的形参，都命名为该活动对象的命名参数,然后将这个活动对象做为此时的作用域链(scope chain)最前端,并将这个函数对象的[[scope]]加入到scope chain中。<br>看个例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function func(arg) &#123;</div><div class="line">	alert(arg);</div><div class="line">&#125;</div><div class="line">func(&quot;hello world!&quot;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在函数<code>func</code>创建时，它的作用域链会填入一个全局对象，该全局对象包含了所有变量，如下图所示(图片只例举了全部变量的一部分)：<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/201505262249.png" alt=""><br>执行此函数时会创建一个称为“运行期上下文(execution context)”的内部对象，运行期上下文定义了函数执行时的环境。每个运行期上下文都有自己的作用域链，用于标识符解析，当运行期上下文被创建时，而它的作用域链初始化为当前运行函数的[[Scope]]所包含的对象。<br>这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中，它们共同组成了一个新的对象，叫“活动对象(activation object)”。该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁，新的作用域链如下图所示：<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/201505262301.png" alt=""><br>在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。</p>
+<p>#JavaScript的声明提升</p>
+<hr>
+<p>可能有的资料中将声明提升(hoist)称为预编译，这是不准确的，<a href="http://zh.wikipedia.org/wiki/JavaScript" target="_blank" rel="external">维基百科</a>对JavaScript的特性也有说明:</p>
+<blockquote>
+<p>是一种解释性脚本语言（代码不进行预编译）</p>
+</blockquote>
+<p>在JavaScript中会提升变量声明，也就是说<code>var</code>表达式和<code>function</code>声明会提升到当前作用域的顶部。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">alert(typeof(func));	//function</div><div class="line">function func()&#123;</div><div class="line">	alert(&quot;hello&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>虽然变量的声明会提升，但变量的计算还是要等到<strong>真正执行时才会计算</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">alert(typeof(func));    //function</div><div class="line">alert(typeof(name));   //undefined</div><div class="line">function func()&#123;</div><div class="line">	alert(&quot;hello&quot;);</div><div class="line">&#125;</div><div class="line">var name=&quot;frank&quot;;</div></pre></td></tr></table></figure></p>
+<p>现在结合之前的知识来看最后一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var name = &apos;frank&apos;; </div><div class="line">(function() &#123; </div><div class="line">  alert(name); // undefined </div><div class="line">  var name = &apos;francis&apos;; </div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<p>因为声明了局部变量<code>name</code>，那么它就会自动的提升到函数作用域的顶部，就像下面这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var name = &apos;frank&apos;; </div><div class="line">(function() &#123; </div><div class="line">  var name;      //var表达式提升到这里</div><div class="line">  alert(name);  // undefined </div><div class="line">  name = &apos;francis&apos;; </div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<p>因为局部变量的提升遮挡了同名的全局变量，也就无法调用到全局变量了。这也可以看出使用全局变量和容易出错，且不易维护，所以平时编码中要尽量<strong>避免使用全局变量</strong>。</p>
+<p><strong>参考资料：</strong></p>
+<ul>
+<li><a href="http://www.laruence.com/2009/05/28/863.html" target="_blank" rel="external">JavaScript作用域原理</a>   </li>
+<li><a href="http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html" target="_blank" rel="external">JavaScript开发进阶：理解JavaScript作用域和作用域链</a></li>
+<li><a href="http://www.cnblogs.com/rainman/archive/2009/04/28/1445687.html#m5" target="_blank" rel="external">深入理解JavaScript的变量作用域</a></li>
+<li><a href="http://code.tutsplus.com/tutorials/quick-tip-javascript-hoisting-explained--net-15092" target="_blank" rel="external">JavaScript Hoisting   Explained</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;#JavaScript作用域&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;在JavaScript中，变量的作用域分为全局作用域和局部作用域两种。&lt;br&gt;&lt;strong&gt;全局作用域&lt;/strong&gt;&lt;br&gt;全局变量的作用域是当前文档中整个脚本区域，也就是在JS程序中的任何位置都可以使用这个变量。一般来说，以下几种情形拥有全局作用域：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;最外层函数和在最外层函数外面定义的变量拥有全局作用域，例如：
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="kongfangyu.com/tags/javascript/"/>
+    
+      <category term="作用域" scheme="kongfangyu.com/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>百度前端技术学院任务（二），JavaScript</title>
+    <link href="kongfangyu.com/2015/05/20/baidu-ife-task2/"/>
+    <id>kongfangyu.com/2015/05/20/baidu-ife-task2/</id>
+    <published>2015-05-20T10:35:44.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>对于这次任务不得不吐槽下题目的难度，即使任务的时间非常宽裕，但对于我这种初学者来说很多题目是完全不知道如何动手，只能不断的搜索相关的例子，来获得解决问题的思路，所以完成这次任务的时间比deadline多了好几天。但通过这次艰难的战斗，JS功力增长了几分，也掌握了一些页面效果的实现方法，这也算是这么多天的幸苦带来的回报吧。这次任务的成果：<a href="https://github.com/FrancisKong/ife/tree/master/task/task0002/work/FrancisKong" target="_blank" rel="external">源码</a>、<a href="http://kongfangyu.com/Demo/baidu-ife/task0002/task0002_1.html">在线预览</a>，下面是关于这次任务的笔记。<br><a id="more"></a><br><br></p>
+<h2 id="JavaScript的性能优化"><a href="#JavaScript的性能优化" class="headerlink" title="#JavaScript的性能优化"></a>#JavaScript的性能优化</h2><p>参考：<a href="http://www.ibm.com/developerworks/cn/web/1308_caiys_jsload/index.html" target="_blank" rel="external">JavaScript性能的优化：加载和执行</a><br>　　　<a href="http://browserdiet.com/zh/#cache-array-lengths" target="_blank" rel="external">How to lose weight(in the browser)</a><br>当浏览器加载JavaScript代码时，会停止解析和渲染页面，造成这样的原因就是JavaScript代码可能会改变页面内容。在同时加载多个脚本时，一些老的浏览器会在加载完一个脚本时再去加载另一个脚本，那么加载脚本的时间就会延长了。</p>
+<p><strong>脚本位置</strong><br>HTML规范允许将<code>&lt;script&gt;</code>标签放在文档的任何位置，但为了减少加载脚本对页面其它资源下载的影响，通常将<code>&lt;script&gt;</code>标签放在靠近<code>&lt;/body&gt;</code>的位置。这样就不会在加载脚本时阻塞CSS样式文件和页面内容的加载，避免脚本加载完成之前页面一片空白。<br><strong>组织脚本</strong><br>因为HTTP请求会带来额外的性能开销，所以要尽可能的减少脚本数量，最好能将多个JavaScript文件合并成一个，减少HTTP请求。<br><strong>无阻塞脚本</strong><br>即使将多个JavaScript文件合并成一个，但依然会阻塞其它资源的下载，那么就需要解决脚本加载和执行的阻塞问题。</p>
+<ul>
+<li>延迟加载<br><code>&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;</code>这里面的defer属性就是告诉浏览器这个脚本不会修改DOM的结构和样式，可以放心执行。因此这个脚本能够同其它资源一起并行下载，但不会立即执行，直到onload事件触发前才执行。在HTML5中新定义了一个属性async，能够异步的加载和执行脚本。使用这种属性的脚本下载好了就会立即执行，所以脚本不会安照原本的顺序执行，所以脚本如果具有前后依赖性，使用async可能就会出现问题。</li>
+<li>动态加载<br>通过DOM来创建<code>&lt;script&gt;</code>元素<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var script = document.createElement (&quot;script&quot;);</div><div class="line">script.type = &quot;text/javascript&quot;;</div><div class="line">script.src = &quot;script1.js&quot;;</div><div class="line">document.getElementsByTagName(&quot;head&quot;)[0].appendChild(script);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>script1.js会在<code>&lt;script&gt;</code>元素添加到DOM树的时候就开始加载和执行，这种技术的重点就是脚本的下载和执行不会阻塞页面其它进程的处理。<br><strong>缓存数组长度</strong><br>之前在群里看到有人讨论循环是否要缓存数组长度的问题，我之前一直没注意过这一点，在讨论之后证明这样做还是非常有必要的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var arr = new Array(1000),</div><div class="line">    len, i;</div><div class="line"></div><div class="line">for (i = 0; i &lt; arr.length; i++) &#123;</div><div class="line">  // Bad - size needs to be recalculated 1000 times</div><div class="line">&#125;</div><div class="line"></div><div class="line">for (i = 0, len = arr.length; i &lt; len; i++) &#123;</div><div class="line">  // Good - size is calculated only 1 time and then stored</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>一些现代的浏览器引擎会自动优化这个过程，但老旧的浏览器就不会有优化了。如果不缓存长度，那么在每次循环时都要重新计算数组长度，对于比较大的数组而言，会带来很大的性能影响。<br><br></p>
+<h2 id="JavaScript事件代理"><a href="#JavaScript事件代理" class="headerlink" title="#JavaScript事件代理"></a>#JavaScript事件代理</h2><p>参考：<a href="http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html" target="_blank" rel="external">JavaScript事件代理和委托</a><br> 在为多个元素绑定事件时，我们可以对父元素添加事件，从而将事件委托给父元素触发处理函数，这样就不需要去为那些元素一一绑定事件。在这次的任务中有一个练习是轮播图，轮播图中用于切换图片的按钮是使用的<code>&lt;ul&gt;</code>标签，HTML结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ul id=&quot;btn-list&quot;&gt;</div><div class="line">    &lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</div><div class="line">	&lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</div><div class="line">	&lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</div><div class="line">	&lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure></p>
+<p>如果不使用事件代理，那么我会通过循环来为这些按钮添加事件,就像下面这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var list=document.getElementsById(&quot;btn-list&quot;);</div><div class="line">var btns=list.getElementsByClassName(&quot;btn&quot;);</div><div class="line">for(var i=0,l=btns.length;i&lt;l;i++) &#123;</div><div class="line">	btns[i].onclick=function()&#123;...&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对于轮播图而言可能图片不会很多，需要遍历的元素也不会太多，使用循环为元素添加事件并不会带来什么的影响，但如果元素一多，可能就会影响性能或增加出错的可能性。<br>如果使用事件代理，就会简单很多，在子节点被点击之后，click事件就会从子节点开始向上冒泡，当事件传播到父节点时，再判断和获取我们需要处理的节点。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var btns=document.getElementById(&quot;btn-list&quot;);</div><div class="line">btns.addEventListener(&quot;click&quot;,function (e) &#123;</div><div class="line">	if(e.target&amp;&amp;e.target.tagName == &quot;LI&quot;)&#123;</div><div class="line">		function()&#123;...&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><strong>事件冒泡及捕获</strong><br>之前的介绍中已经说到了浏览器的事件冒泡机制。这里再详细介绍一下浏览器处理DOM事件的过程。对于事件的捕获和处理，不同的浏览器厂商有不同的处理机制，这里我们主要介绍W3C对DOM2.0定义的标准事件。<br>DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段，二、事件目标阶段，三、事件起泡阶段。如图：<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/201505192030.jpg" alt="JS事件捕获与事件原型冒泡图"><br>1.事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。<br>2.事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。<br>3.事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被一次触发。如果想阻止事件起泡，可以使用e.stopPropagation()（Firefox）或者e.cancelBubble=true（IE）来组织事件的冒泡传播。<br><br></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="#小结"></a>#小结</h2><p>通过这次任务了解了基本JavaScript知识、DOM操作方法，也能够实现轮播图、鼠标拖拽效果等，收获还是挺大的。在做这些练习的时候可以说是一点头绪都没有，连如何动手都不知道。在这里要推荐下<a href="www.imooc.com">慕课网</a>，我也是在这上面找到相关的视频才能够做出来任务中的一些练习。在做练习的时候还想着在笔记中写一些这次任务中的难点，但在做完之后却发现并没有什么难点可以写，可能写代码最难的还是思路吧。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;对于这次任务不得不吐槽下题目的难度，即使任务的时间非常宽裕，但对于我这种初学者来说很多题目是完全不知道如何动手，只能不断的搜索相关的例子，来获得解决问题的思路，所以完成这次任务的时间比deadline多了好几天。但通过这次艰难的战斗，JS功力增长了几分，也掌握了一些页面效果的实现方法，这也算是这么多天的幸苦带来的回报吧。这次任务的成果：&lt;a href=&quot;https://github.com/FrancisKong/ife/tree/master/task/task0002/work/FrancisKong&quot;&gt;源码&lt;/a&gt;、&lt;a href=&quot;http://kongfangyu.com/Demo/baidu-ife/task0002/task0002_1.html&quot;&gt;在线预览&lt;/a&gt;，下面是关于这次任务的笔记。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="baidu-ife" scheme="kongfangyu.com/tags/baidu-ife/"/>
+    
+      <category term="javascript" scheme="kongfangyu.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>百度前端学院任务（一），HTML&amp;CSS</title>
+    <link href="kongfangyu.com/2015/05/12/baidu-ife-task1/"/>
+    <id>kongfangyu.com/2015/05/12/baidu-ife-task1/</id>
+    <published>2015-05-12T15:18:28.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>前段时间报名参加<a href="https://github.com/baidu-ife/ife" target="_blank" rel="external">百度前端技术学院</a>的初级班，虽然没有被选上，但因为任务和资料都是公开的（赞一个），所以一直在跟着任务做。因为之前并没有前端基础，所以在做这些任务的时候可以说是困难重重吧，但还是能够在deadline之前将任务做完（虽然没有导师review~~）。这次任务主要是学习HTML&amp;CSS布局，下面就是关于这次任务的笔记了。作业已放在GitHub上(<a href="https://github.com/FrancisKong/ife/tree/master/task/task0001/work/FrancisKong" target="_blank" rel="external">源码</a>,<a href="http://kongfangyu.com/Demo/baidu-ife/task0001/index.html">在线预览</a>)。<br><a id="more"></a><br><br></p>
+<h2 id="清除浮动"><a href="#清除浮动" class="headerlink" title="#清除浮动"></a>#清除浮动</h2><p>参考：<a href="http://www.iyunlu.com/view/css-xhtml/55.html" target="_blank" rel="external">那些年我们一起清除过的浮动</a><br>　　　<a href="http://www.qianduan.net/comprehensive-haslayout/" target="_blank" rel="external">haslayout综合</a><br>　　　<a href="http://www.cnblogs.com/pigtail/archive/2013/01/23/2871627.html" target="_blank" rel="external">BFC和haslayout</a><br>浮动布局可以说是常用的布局方式了，但在使用这种方式布局有的时候可能会造成高度塌陷（高度为0）。在浮动元素的高度超过了父元素的时候，浮动元素就会浮动在父元素外部，而父元素高度并不会随着浮动元素的高度增加而增加，因为包含元素里面没有任何元素了，那么就会造成高度塌陷了。为解决这种情况，就需要清除浮动，清除浮动的方法主要有以下几种(参考：<br>1.添加额外标签<br>这可以说是最通俗易懂的方法了，就是在浮动元素末尾处添加一个额外的标签，然后在给这个标签添加一个样式，如<code>&lt;div style=&quot;clear:both&quot;&gt;&lt;/div&gt;</code>。这样做确实是非常的简单，但添加一个与业务逻辑无关的标签似乎不太好，并且在后期维护时也将是件麻烦事。<br>2.使用br标签和其自身的属性<br> 这种方法和类似于第一种方法，只是利用br标签自身的属性<code>clear=&quot;all | left | right | none&quot;</code>，如<code>&lt;br clear=&quot;all&quot;/&gt;</code>，这样略微并上面一种方法好，但并不是一种好的解决方法。<br>3.使用overflow:hidden<br>对父元素设置<code>overflow:hidden</code>，在IE6中还需要触发haslayout。如：<code>&lt;div style=&quot;overflow:hidden;*zoom:1&quot;&gt;&lt;/div&gt;</code>。但这样可能会导致溢出的内容隐藏，无法显示出来。<br>4.父元素设置浮动<br>对父元素设置浮动，如<code>&lt;div style=&quot;float:left&quot;&gt;&lt;/div&gt;</code>，但这样与父元素相邻的元素布局又可能出现新的问题。<br>5.父元素设置display:table<br>对父元素设置<code>display:table</code>，如：<code>&lt;div style=&quot;display:table&quot;&gt;&lt;div&gt;</code>用元素作为块级表格来显示，但如果使用不慎可能会违反HTML已经定义的显示层次结构。<br>6.使用:after伪元素<br>使用:after在元素后面虚拟出一个子元素 ,来避免添加额外的标签，由于IE6-7不支持:after，需要触发haslayout清除浮动。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">.cf:before,.cf:after &#123;</div><div class="line">content:&quot;&quot;;</div><div class="line">display:table;</div><div class="line">&#125;</div><div class="line">.cf:after &#123; clear:both; &#125;/* For IE 6/7 (trigger hasLayout) */</div><div class="line">.cf &#123; zoom:1; &#125;</div></pre></td></tr></table></figure></p>
+<p>通过对比，我们不难发现，其实以上列举的方法，无非有两种：</p>
+<ul>
+<li>通过在浮动元素的末尾添加一个空元素，设置clear：both属性，after伪元素其实也是通过content在元素的后面生成了内容为一个点的块级元素；</li>
+<li>通过设置父元素overflow或者display：table属性来闭合浮动，这种方法也就是通过触发BFC(Block Formatting Context)使浮动子元素的高度参与父元素高度的计算。</li>
+</ul>
+<p><br></p>
+<h2 id="水平居中"><a href="#水平居中" class="headerlink" title="#水平居中"></a>#水平居中</h2><p>在这次任务中，水平居中应该是最令我头疼的，水平居中的方式虽然有很多种，但有的方式还有些限制，像FLEXBOX这种简单便捷的方式因为需要兼容IE8的原因而无法使用。下面是我总结的几条关于水平居中的方式，欢迎补充。</p>
+<p>1.使用<code>margin： 0 auto</code><br><code>margin:0 auto</code>的意思是上下外边距为0，左右外边距自适应，这样就可以让元素水平居中了，但使用这种方法需要设置元素的宽度，不然元素怎么自适应呢。另外就是不能让元素脱离原本的文档流，比如浮动或绝对定位什么的。<br>2.负外边距<br>这是我用的最多的居中方式了，毕竟这种方式很好掌握，并且适用性强，只需要知道元素的宽度就可以了。将元素向左偏移50%，再设置左外边距为负数，大小是内边距加上宽度的一半，具体看代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.is-Negative &#123;  </div><div class="line">         width: 300px;  </div><div class="line">         height: 200px;  </div><div class="line">         padding: 20px;  </div><div class="line">         position: absolute;  </div><div class="line">         left: 50%;  </div><div class="line">         margin-left: -170px; /* (width + padding)/2 */  </div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>3.相对定位<br>　　对于需要居中的元素添加一个父元素，再设置父元素和子元素的样式，这样做会增加页面代码，并且可能会对其它采用绝对或相对的子元素造成影响。但这种方法可以在不知道元素的宽度的情况下使用，并且兼容性很好，也算是一个不错的选择了，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/*父元素样式*/</div><div class="line">.container                       </div><div class="line">&#123;</div><div class="line">     position:relative;</div><div class="line">     float:left;</div><div class="line">     left:50%;</div><div class="line">&#125;</div><div class="line">/*子元素样式*/</div><div class="line">.box</div><div class="line">&#123;</div><div class="line">     position:relative;</div><div class="line">     float:left;</div><div class="line">     left:-50%;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.FLEXBOX<br>最后要说的就是FLEXBOX了，这货实在是太方便了，没有上面说的那些限制，并且还能轻松实现一些高级布局(更多资料可以看<a href="https://www.google.com/search?q=flexbox&amp;oq=flexbox&amp;aqs=chrome..69i57l2j69i60l4.1609j0j4&amp;sourceid=chrome&amp;es_sm=93&amp;ie=UTF-8" target="_blank" rel="external">MDN FLEXBOX</a>)，可惜就是浏览器兼容性差，IE11以下都不支持。在使用时，还需要加上浏览器厂商前缀，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">display: -webkit-flex;  	 /* NEW, Chrome 21–28, Safari 6.1+ */</div><div class="line">  	display: flex;		    /* NEW: IE11, Chrome 29+, Opera 12.1+, Firefox 22+ */</div><div class="line">  	-webkit-justify-content: center;	</div><div class="line">    justify-content: center;</div></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="#小结"></a>#小结</h2><p>在这次编码过程中还碰到一个问题就是命名，如果一个页面中的元素比较多就不知道该怎么命名了，为此特地搜索了一下，找到了一篇比较详细的<a href="http://www.w3cfuns.com/blog-5445898-5398950.html#." target="_blank" rel="external">CSS命名规范</a>给大家参考。任务结束之后看别人的导师review时还是发现自己的不足，比如说没有养成一个良好的编码习惯，在颜色取值上应该用十六进制但我用了<code>rgb()</code>，<code>font-weight</code>应该用数值而不是<code>bold</code>等等，希望自己能在以后的编码中改掉这些坏习惯。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间报名参加&lt;a href=&quot;https://github.com/baidu-ife/ife&quot;&gt;百度前端技术学院&lt;/a&gt;的初级班，虽然没有被选上，但因为任务和资料都是公开的（赞一个），所以一直在跟着任务做。因为之前并没有前端基础，所以在做这些任务的时候可以说是困难重重吧，但还是能够在deadline之前将任务做完（虽然没有导师review~~）。这次任务主要是学习HTML&amp;amp;CSS布局，下面就是关于这次任务的笔记了。作业已放在GitHub上(&lt;a href=&quot;https://github.com/FrancisKong/ife/tree/master/task/task0001/work/FrancisKong&quot;&gt;源码&lt;/a&gt;,&lt;a href=&quot;http://kongfangyu.com/Demo/baidu-ife/task0001/index.html&quot;&gt;在线预览&lt;/a&gt;)。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="baidu-ife" scheme="kongfangyu.com/tags/baidu-ife/"/>
+    
+      <category term="html" scheme="kongfangyu.com/tags/html/"/>
+    
+      <category term="css" scheme="kongfangyu.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Hexo搭建博客</title>
+    <link href="kongfangyu.com/2015/05/06/build-blog/"/>
+    <id>kongfangyu.com/2015/05/06/build-blog/</id>
+    <published>2015-05-06T10:53:55.000Z</published>
+    <updated>2017-04-15T09:57:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><br></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
+<p>一直想要搭建一个自己的博客，但直到最近接触<a href="https://github.com" target="_blank" rel="external">GitHub</a>才知道能够在<a href="https://pages.github.com/" target="_blank" rel="external">GitHub Pages</a>上搭建静态博客，这篇文章就是我搭建个人博客的一些记录。<br><br><br><a id="more"></a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><hr>
+<p>1.<a href="http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/" target="_blank" rel="external">如何搭建一个独立博客</a><br>2.<a href="http://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">hexo官方文档</a><br><br></p>
+<h1 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h1><hr>
+<p>　　搭建过程主要是参考上面链接，链接中的资料已经非常全了，从环境搭建到文章发布全都有了，所以我就不再细说了，这篇文章主要记录一下我在搭建过程中碰到的一些问题。<br><br></p>
+<h1 id="Hexo配置问题"><a href="#Hexo配置问题" class="headerlink" title="Hexo配置问题"></a>Hexo配置问题</h1><hr>
+<p>　　在配置Hexo的_config.yml文件后，然后运行<code>hexo d</code>部署项目时却碰到<code>deployer not found github</code>错误，按照参考资料上写的是</p>
+<pre><code>deploy:
+  type: github
+  repository: github.com/cnfeat/cnfeat.github.io.git
+  branch: master
+</code></pre><p>  但这样配置却无法顺利部署，于是只好求助度娘了，度娘给出的解决方法是将<code>type:github</code>改成<code>type:git</code>,并运行如下命令<code>npm install hexo-deployer-git --save</code>再重新部署一下就可以了。<br> <br></p>
+<h1 id="加入多说评论"><a href="#加入多说评论" class="headerlink" title="加入多说评论"></a>加入多说评论</h1><hr>
+<p>一个博客自然是要有评论系统，国内的博客大多都是用<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>来作为自己博客的评论系统。但在配置的时候根据主题的官方文档说明是在_config.yml中加入<code>duoshuo:duoshuo_shortname</code>，但是我并不知道<code>short_name</code>到底是指什么，为此搜索了很久也没有结果，只能一个个试了，试出来的结果是多说域名上的名字，例如我的是多说域名是：franciskong.duoshuo.com，那么就是填写<code>duoshuo:franciskong</code>。<br><br></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><hr>
+<p>我在搭建过程中主要就是碰到了这两个问题，其他的小问题都非常容易解决，总的来说使用Hexo搭建博客还是非常便捷的。因为最近要准备事情比较多，没有足够的时间去写页面代码，所以博客使用的是<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">yilia</a>主题，页面这个坑就留给自己以后有空去填吧。         </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;一直想要搭建一个自己的博客，但直到最近接触&lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt;才知道能够在&lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;上搭建静态博客，这篇文章就是我搭建个人博客的一些记录。&lt;br&gt;&lt;br/&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="kongfangyu.com/tags/hexo/"/>
+    
+      <category term="博客" scheme="kongfangyu.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+</feed>
