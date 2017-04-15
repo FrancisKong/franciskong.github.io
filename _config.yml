@@ -70,7 +70,7 @@ deploy:
   type: git
   message: ""
   repo: https://github.com/FrancisKong/franciskong.github.io
-  branch: gh-pages
+  branch: gh-page
 plugins:
 - hexo-generator-feed
 - hexo-generator-sitemap
