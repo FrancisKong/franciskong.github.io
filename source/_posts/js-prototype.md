@@ -7,7 +7,7 @@ tags: [javascript,原型]
 JS中的每个对象都有一个内部私有的链接指向另一个对象，这个对象就是原对象的原型。这个原型对象也有自己的原型，直到对象的原型为 null 为止（也就是没有原型）。这种一级一级的链结构就称为原型链。
 <!--more-->
 <br/>
-#创建对象
+# 创建对象
 
 
 ----------
@@ -44,7 +44,7 @@ var a=Object.create(Calculator.prototype);
 alert(a.__proto__===Calculator.prototype);		//true
 ```
 <br/>
-#原型链
+# 原型链
 
 
 ----------
@@ -71,7 +71,7 @@ var test = new Bar() // 创建Bar的一个新实例
 
 // 原型链
 test [Bar的实例]
-    Bar.prototype [Foo的实例] 
+    Bar.prototype [Foo的实例]
         { foo: 'Hello World' }
         Foo.prototype
             {method: ...};
@@ -84,7 +84,7 @@ test [Bar的实例]
 **hasOwnProperty**
 如果需要检测一个属性自身定义的还是原型链上，可以使用Object.prototype的[hasOwnProperty](https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty)，该方法是 JS中唯一一个只涉及对象自身属性而不会遍历原型链的方法。
 <br/>
-#小结
+# 小结
 
 ----------
 

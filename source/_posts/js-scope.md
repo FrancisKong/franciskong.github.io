@@ -3,7 +3,7 @@ date: 2015-05-27 20:14:26
 tags: [javascript,作用域]
 ---
 <br>
-#JavaScript作用域
+# JavaScript作用域
 
 
 ----------
@@ -48,7 +48,7 @@ func(); //Frank
 alert(newName) //脚本错误
 ```
 <br>
-#JavaScript作用域链
+# JavaScript作用域链
 
 
 ----------
@@ -65,7 +65,7 @@ JS的语法风格和C/C++类似,但作用域的实现却和C/C++不同，并非�
 function func(arg) {
 	alert(arg);
 }
-func("hello world!"); 
+func("hello world!");
 ```
 在函数`func`创建时，它的作用域链会填入一个全局对象，该全局对象包含了所有变量，如下图所示(图片只例举了全部变量的一部分)：
 ![][1]
@@ -73,7 +73,7 @@ func("hello world!");
 这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中，它们共同组成了一个新的对象，叫“活动对象(activation object)”。该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁，新的作用域链如下图所示：
 ![][2]
 在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。
-#JavaScript的声明提升
+# JavaScript的声明提升
 
 ----------
 可能有的资料中将声明提升(hoist)称为预编译，这是不准确的，[维基百科](http://zh.wikipedia.org/wiki/JavaScript)对JavaScript的特性也有说明:
@@ -98,19 +98,19 @@ var name="frank";
 ```
 现在结合之前的知识来看最后一个例子：
 ```
-var name = 'frank'; 
-(function() { 
-  alert(name); // undefined 
-  var name = 'francis'; 
+var name = 'frank';
+(function() {
+  alert(name); // undefined
+  var name = 'francis';
 })();
 ```
 因为声明了局部变量`name`，那么它就会自动的提升到函数作用域的顶部，就像下面这样：
 ```
-var name = 'frank'; 
-(function() { 
+var name = 'frank';
+(function() {
   var name;      //var表达式提升到这里
-  alert(name);  // undefined 
-  name = 'francis'; 
+  alert(name);  // undefined
+  name = 'francis';
 })();
 ```
 因为局部变量的提升遮挡了同名的全局变量，也就无法调用到全局变量了。这也可以看出使用全局变量和容易出错，且不易维护，所以平时编码中要尽量**避免使用全局变量**。

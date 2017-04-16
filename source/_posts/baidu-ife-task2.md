@@ -5,7 +5,7 @@ tags: [baidu-ife,javascript]
 对于这次任务不得不吐槽下题目的难度，即使任务的时间非常宽裕，但对于我这种初学者来说很多题目是完全不知道如何动手，只能不断的搜索相关的例子，来获得解决问题的思路，所以完成这次任务的时间比deadline多了好几天。但通过这次艰难的战斗，JS功力增长了几分，也掌握了一些页面效果的实现方法，这也算是这么多天的幸苦带来的回报吧。这次任务的成果：[源码](https://github.com/FrancisKong/ife/tree/master/task/task0002/work/FrancisKong)、[在线预览](http://kongfangyu.com/Demo/baidu-ife/task0002/task0002_1.html)，下面是关于这次任务的笔记。
 <!--more-->
 <br>
-#JavaScript的性能优化
+# JavaScript的性能优化
 ----------
 参考：[JavaScript性能的优化：加载和执行](http://www.ibm.com/developerworks/cn/web/1308_caiys_jsload/index.html)
 　　　[How to lose weight(in the browser)](http://browserdiet.com/zh/#cache-array-lengths)
@@ -45,7 +45,7 @@ for (i = 0, len = arr.length; i < len; i++) {
 ```
 一些现代的浏览器引擎会自动优化这个过程，但老旧的浏览器就不会有优化了。如果不缓存长度，那么在每次循环时都要重新计算数组长度，对于比较大的数组而言，会带来很大的性能影响。
 <br>
-#JavaScript事件代理
+# JavaScript事件代理
 ----------
 参考：[JavaScript事件代理和委托](http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html)
  在为多个元素绑定事件时，我们可以对父元素添加事件，从而将事件委托给父元素触发处理函数，这样就不需要去为那些元素一一绑定事件。在这次的任务中有一个练习是轮播图，轮播图中用于切换图片的按钮是使用的`<ul>`标签，HTML结构如下：
@@ -83,6 +83,6 @@ DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段�
 2.事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。
 3.事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被一次触发。如果想阻止事件起泡，可以使用e.stopPropagation()（Firefox）或者e.cancelBubble=true（IE）来组织事件的冒泡传播。
 <br>
-#小结
+# 小结
 ----------
 通过这次任务了解了基本JavaScript知识、DOM操作方法，也能够实现轮播图、鼠标拖拽效果等，收获还是挺大的。在做这些练习的时候可以说是一点头绪都没有，连如何动手都不知道。在这里要推荐下[慕课网](www.imooc.com)，我也是在这上面找到相关的视频才能够做出来任务中的一些练习。在做练习的时候还想着在笔记中写一些这次任务中的难点，但在做完之后却发现并没有什么难点可以写，可能写代码最难的还是思路吧。

@@ -5,7 +5,7 @@ tags: [baidu-ife,html,css]
 前段时间报名参加[百度前端技术学院](https://github.com/baidu-ife/ife)的初级班，虽然没有被选上，但因为任务和资料都是公开的（赞一个），所以一直在跟着任务做。因为之前并没有前端基础，所以在做这些任务的时候可以说是困难重重吧，但还是能够在deadline之前将任务做完（虽然没有导师review~~）。这次任务主要是学习HTML&CSS布局，下面就是关于这次任务的笔记了。作业已放在GitHub上([源码](https://github.com/FrancisKong/ife/tree/master/task/task0001/work/FrancisKong),[在线预览](http://kongfangyu.com/Demo/baidu-ife/task0001/index.html))。
 <!--more-->
 <br/>
-#清除浮动
+# 清除浮动
 ---
 参考：[那些年我们一起清除过的浮动](http://www.iyunlu.com/view/css-xhtml/55.html)
 　　　[haslayout综合](http://www.qianduan.net/comprehensive-haslayout/)
@@ -32,13 +32,13 @@ display:table;
 .cf { zoom:1; }
 ```
 通过对比，我们不难发现，其实以上列举的方法，无非有两种：
- 
+
 
  - 通过在浮动元素的末尾添加一个空元素，设置clear：both属性，after伪元素其实也是通过content在元素的后面生成了内容为一个点的块级元素；
  - 通过设置父元素overflow或者display：table属性来闭合浮动，这种方法也就是通过触发BFC(Block Formatting Context)使浮动子元素的高度参与父元素高度的计算。
 
 <br/>
-#水平居中
+# 水平居中
 ---
 在这次任务中，水平居中应该是最令我头疼的，水平居中的方式虽然有很多种，但有的方式还有些限制，像FLEXBOX这种简单便捷的方式因为需要兼容IE8的原因而无法使用。下面是我总结的几条关于水平居中的方式，欢迎补充。
 
@@ -79,11 +79,11 @@ display:table;
 ```
 display: -webkit-flex;  	 /* NEW, Chrome 21–28, Safari 6.1+ */
   	display: flex;		    /* NEW: IE11, Chrome 29+, Opera 12.1+, Firefox 22+ */
-  	-webkit-justify-content: center;	
+  	-webkit-justify-content: center;
     justify-content: center;
 ```
 
 <br/>
-#小结
+# 小结
 ---
 在这次编码过程中还碰到一个问题就是命名，如果一个页面中的元素比较多就不知道该怎么命名了，为此特地搜索了一下，找到了一篇比较详细的[CSS命名规范](http://www.w3cfuns.com/blog-5445898-5398950.html#.)给大家参考。任务结束之后看别人的导师review时还是发现自己的不足，比如说没有养成一个良好的编码习惯，在颜色取值上应该用十六进制但我用了`rgb()`，`font-weight`应该用数值而不是`bold`等等，希望自己能在以后的编码中改掉这些坏习惯。

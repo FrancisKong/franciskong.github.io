@@ -22,7 +22,7 @@ cd /home/user/www
 git init
 git clone ~/repos/test.git
 ```
-##配置Git Hook
+## 配置Git Hook
 进入到`~/repos/test.git/hooks`文件夹，使用`vi post-receive`创建一个脚本，当你在本地仓库执行`git push`后就会触发`post-receive`（[关于Git Hok][1]）。
 `post-receive`的内容
 ```
@@ -48,7 +48,7 @@ exit 0
 默认的情况下，脚本是无法执行的，所以我们需要为这个脚本添加可执行权限
 `chmod +x post-receive`
 
-##本地仓库配置
+## 本地仓库配置
 
 
 ----------

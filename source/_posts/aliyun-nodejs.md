@@ -6,7 +6,7 @@ tags: [阿里云,node.js,服务器]
 最近买了个阿里云服务器用于做一些小项目，系统选的是CentOS 7 ,因为是第一次配置服务器环境，并且之前也没接触过Linux系统，整个过程可以说是困难重重，好在最后配置好了。写下这篇文章用作自己以后参考，也希望能够给大家一点帮助。
 PS:下面的操作都是在Windows上执行
 <!--more-->
-#一、登录服务器
+# 一、登录服务器
 
 
 ----------
@@ -19,7 +19,7 @@ PS:下面的操作都是在Windows上执行
 4. 给新用户分配一个密码，输入命令之后就会提示你输入新密码，然后按提示操作就好了
 `passwd username`
 
-#二、安装Node.js
+# 二、安装Node.js
 
 
 ----------
@@ -29,8 +29,8 @@ PS:下面的操作都是在Windows上执行
 `wget http://nodejs.org/dist/node-latest.tar.gz`
 2. 解压下载的文件，并进入解压后的文件夹：
 ```
-tar zxf node-v*.tar.gz 
-cd node-v* 
+tar zxf node-v*.tar.gz
+cd node-v*
 ```
 3. 预编译
 `./configure`
@@ -42,7 +42,7 @@ node -v
 npm -v
 ```
 如果输出了相应的版本号就表示nodejs已经安装成功了。
-#三、安装Nginx
+# 三、安装Nginx
 HTTP请求是80端口，但是在Linux上非root权限是无法使用1024以下端口的，并且因为安全原因，[最好不要使用root权限登录服务器][3]，所以无法直接用node.js程序监听80端口。因此我们需要使用[Nginx][4]给node.js做反向代理，将80端口指向应用程序监听的端口(如node.js默认的3000端口)。
 1. 添加Nginx仓库
 `sudo yum install epel-release`
@@ -60,7 +60,7 @@ location /{
 4. 启动/重启服务器
 `sudo systemctl start/restart nginx`
 
-#四、安装Forever后台管理器
+# 四、安装Forever后台管理器
 通常我们会使用`node app.js`启动应用，如果这样做，一旦我们关闭ssh连接，那么程序就会终止运行。我们可以用npm模块Forever解决这个问题。
 1. 全局安装Forever
 `sudo npm install forever -g`
@@ -74,13 +74,13 @@ sudo ln -s /usr/local/bin/node-waf /usr/bin/node-waf
 ```
 2. 开启进程
 `forever start app.js`
-如果是用`npm start`启动引用，则可以使用下面的命令，把目录换成你的项目文件夹路径或者在项目文件夹下使用**./**作为路径
+如果是用`npm start`启动引用，则可以使用下面的命令，把目录换成你的项目文件夹路径或者在项目文件夹下使用 `./` 作为路径
 `forever start -c "npm start" /path/to/app/dir/`
 
 3. 查看进程
 `forever list`
 
-#五、免密码登录服务器
+# 五、免密码登录服务器
 
 
 ----------

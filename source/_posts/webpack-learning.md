@@ -6,7 +6,7 @@ tags: [webpack]
 [webpack][2]是最近非常流行的一个模块加载器，它不仅能够像`require.js`一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。
 <!-- more -->
 
-#安装webpack
+# 安装webpack
 
 
 ----------
@@ -18,7 +18,7 @@ tags: [webpack]
 `npm install webpack --save-dev`
 
 
-#目录结构
+# 目录结构
 
 
 ----------
@@ -36,12 +36,12 @@ tags: [webpack]
 └── package.json        
 ```
 
-#一个简单的webpack
+# 一个简单的webpack
 
 
 ----------
 
-##配置webpack
+## 配置webpack
 webpack使用`webpack.config.js`文件进行项目配置，所以我们需要在项目的根目录下创建这个文件， 一个简单的配置文件如下：
 ``` javascript
 //webpack.config.js
@@ -59,7 +59,7 @@ module.exports = {
     },
 };
 ```
-##启动webpack
+## 启动webpack
 命令行
 ```
 webpack           //最基本的webpack启动方法
@@ -71,7 +71,7 @@ webpack -d        //让他生成SourceMaps，方便调试
 之后在html文件中引入就行
 `<script src="./dist/bundle.js"></script>`
 
-#配置loaders
+# 配置loaders
 
 
 ----------
@@ -127,11 +127,11 @@ plugins: [
 同时我们还可以使autoprefixer自动补全浏览器前缀，省去了为了浏览器兼容性写各种前缀的麻烦。关于autoprefixer的配置可以参考[这里][6]
 `npm install autoprefixer-loader --save-dev`
 
-不同的loader之间用**!**号连接
+不同的loader之间用 **!** 号连接
 ```
-{ 
-    test: /\.scss$/, 
-    loader: 'style!css!autoprefixer?browsers=last 2 version!sass' 
+{
+    test: /\.scss$/,
+    loader: 'style!css!autoprefixer?browsers=last 2 version!sass'
 }
 ```
 当我们使用`require('../scss/style.scss')`加载样式文件时，则会将样式文件直接使用`<style>`标签插入到HTML文件中，不过有的时候我们可能还是希望将样式作为css文件导出，病使用`<link>`引入，这时候就需要插件配合了。
@@ -181,7 +181,7 @@ module.exports = {
     ]
     output: {
         path: 'dist',
-        filename: '[name].bundle.js', 
+        filename: '[name].bundle.js',
     },
 };
 ```

@@ -4,7 +4,7 @@ tags: [visual stuio code,node.js,智能提示]
 ---
 
 
-#前言
+# 前言
 
 
 ----------
@@ -13,7 +13,7 @@ tags: [visual stuio code,node.js,智能提示]
 最近一直在使用[visual studio code(以下简称vsc)](https://www.visualstudio.com/)作为我的主力编辑器，不过最近在使用vsc写node.js代码时却碰到了一个问题：竟然没有智能提示！！！对于我这种离开智能提示就写不出代码的人简直不能忍，于是赶紧去官网查了一下文档。原来vsc使用的是**TypeScript definition**文件为vsc提供基于JavaScript框架的智能提示以及在使用错误的API时的警告。
 <!--more-->
 <br/>
-#步骤
+# 步骤
 
 
 ----------
