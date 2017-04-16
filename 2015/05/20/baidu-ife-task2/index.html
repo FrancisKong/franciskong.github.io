@@ -1,0 +1,754 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="baidu-ife,javascript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孔方宇的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="对于这次任务不得不吐槽下题目的难度，即使任务的时间非常宽裕，但对于我这种初学者来说很多题目是完全不知道如何动手，只能不断的搜索相关的例子，来获得解决问题的思路，所以完成这次任务的时间比deadline多了好几天。但通过这次艰难的战斗，JS功力增长了几分，也掌握了一些页面效果的实现方法，这也算是这么多天的幸苦带来的回报吧。这次任务的成果：源码、在线预览，下面是关于这次任务的笔记。">
+<meta name="keywords" content="baidu-ife,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="百度前端技术学院任务（二），JavaScript">
+<meta property="og:url" content="kongfangyu.com/2015/05/20/baidu-ife-task2/index.html">
+<meta property="og:site_name" content="孔方宇的博客">
+<meta property="og:description" content="对于这次任务不得不吐槽下题目的难度，即使任务的时间非常宽裕，但对于我这种初学者来说很多题目是完全不知道如何动手，只能不断的搜索相关的例子，来获得解决问题的思路，所以完成这次任务的时间比deadline多了好几天。但通过这次艰难的战斗，JS功力增长了几分，也掌握了一些页面效果的实现方法，这也算是这么多天的幸苦带来的回报吧。这次任务的成果：源码、在线预览，下面是关于这次任务的笔记。">
+<meta property="og:image" content="http://7xj5pg.com1.z0.glb.clouddn.com/201505192030.jpg">
+<meta property="og:updated_time" content="2017-04-16T03:17:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="百度前端技术学院任务（二），JavaScript">
+<meta name="twitter:description" content="对于这次任务不得不吐槽下题目的难度，即使任务的时间非常宽裕，但对于我这种初学者来说很多题目是完全不知道如何动手，只能不断的搜索相关的例子，来获得解决问题的思路，所以完成这次任务的时间比deadline多了好几天。但通过这次艰难的战斗，JS功力增长了几分，也掌握了一些页面效果的实现方法，这也算是这么多天的幸苦带来的回报吧。这次任务的成果：源码、在线预览，下面是关于这次任务的笔记。">
+<meta name="twitter:image" content="http://7xj5pg.com1.z0.glb.clouddn.com/201505192030.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="kongfangyu.com/2015/05/20/baidu-ife-task2/"/>
+
+
+
+
+
+  <title> 百度前端技术学院任务（二），JavaScript | 孔方宇的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-63429467-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孔方宇的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">make the world a better place</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="kongfangyu.com/2015/05/20/baidu-ife-task2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孔方宇">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孔方宇的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                百度前端技术学院任务（二），JavaScript
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-05-20T18:35:44+08:00">
+                2015-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/20/baidu-ife-task2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/05/20/baidu-ife-task2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对于这次任务不得不吐槽下题目的难度，即使任务的时间非常宽裕，但对于我这种初学者来说很多题目是完全不知道如何动手，只能不断的搜索相关的例子，来获得解决问题的思路，所以完成这次任务的时间比deadline多了好几天。但通过这次艰难的战斗，JS功力增长了几分，也掌握了一些页面效果的实现方法，这也算是这么多天的幸苦带来的回报吧。这次任务的成果：<a href="https://github.com/FrancisKong/ife/tree/master/task/task0002/work/FrancisKong" target="_blank" rel="external">源码</a>、<a href="http://kongfangyu.com/Demo/baidu-ife/task0002/task0002_1.html">在线预览</a>，下面是关于这次任务的笔记。<br><a id="more"></a><br><br></p>
+<h1 id="JavaScript的性能优化"><a href="#JavaScript的性能优化" class="headerlink" title="JavaScript的性能优化"></a>JavaScript的性能优化</h1><hr>
+<p>参考：<a href="http://www.ibm.com/developerworks/cn/web/1308_caiys_jsload/index.html" target="_blank" rel="external">JavaScript性能的优化：加载和执行</a><br>　　　<a href="http://browserdiet.com/zh/#cache-array-lengths" target="_blank" rel="external">How to lose weight(in the browser)</a><br>当浏览器加载JavaScript代码时，会停止解析和渲染页面，造成这样的原因就是JavaScript代码可能会改变页面内容。在同时加载多个脚本时，一些老的浏览器会在加载完一个脚本时再去加载另一个脚本，那么加载脚本的时间就会延长了。</p>
+<p><strong>脚本位置</strong><br>HTML规范允许将<code>&lt;script&gt;</code>标签放在文档的任何位置，但为了减少加载脚本对页面其它资源下载的影响，通常将<code>&lt;script&gt;</code>标签放在靠近<code>&lt;/body&gt;</code>的位置。这样就不会在加载脚本时阻塞CSS样式文件和页面内容的加载，避免脚本加载完成之前页面一片空白。<br><strong>组织脚本</strong><br>因为HTTP请求会带来额外的性能开销，所以要尽可能的减少脚本数量，最好能将多个JavaScript文件合并成一个，减少HTTP请求。<br><strong>无阻塞脚本</strong><br>即使将多个JavaScript文件合并成一个，但依然会阻塞其它资源的下载，那么就需要解决脚本加载和执行的阻塞问题。</p>
+<ul>
+<li>延迟加载<br><code>&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;</code>这里面的defer属性就是告诉浏览器这个脚本不会修改DOM的结构和样式，可以放心执行。因此这个脚本能够同其它资源一起并行下载，但不会立即执行，直到onload事件触发前才执行。在HTML5中新定义了一个属性async，能够异步的加载和执行脚本。使用这种属性的脚本下载好了就会立即执行，所以脚本不会安照原本的顺序执行，所以脚本如果具有前后依赖性，使用async可能就会出现问题。</li>
+<li>动态加载<br>通过DOM来创建<code>&lt;script&gt;</code>元素<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var script = document.createElement (&quot;script&quot;);</div><div class="line">script.type = &quot;text/javascript&quot;;</div><div class="line">script.src = &quot;script1.js&quot;;</div><div class="line">document.getElementsByTagName(&quot;head&quot;)[0].appendChild(script);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>script1.js会在<code>&lt;script&gt;</code>元素添加到DOM树的时候就开始加载和执行，这种技术的重点就是脚本的下载和执行不会阻塞页面其它进程的处理。<br><strong>缓存数组长度</strong><br>之前在群里看到有人讨论循环是否要缓存数组长度的问题，我之前一直没注意过这一点，在讨论之后证明这样做还是非常有必要的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var arr = new Array(1000),</div><div class="line">    len, i;</div><div class="line"></div><div class="line">for (i = 0; i &lt; arr.length; i++) &#123;</div><div class="line">  // Bad - size needs to be recalculated 1000 times</div><div class="line">&#125;</div><div class="line"></div><div class="line">for (i = 0, len = arr.length; i &lt; len; i++) &#123;</div><div class="line">  // Good - size is calculated only 1 time and then stored</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>一些现代的浏览器引擎会自动优化这个过程，但老旧的浏览器就不会有优化了。如果不缓存长度，那么在每次循环时都要重新计算数组长度，对于比较大的数组而言，会带来很大的性能影响。<br><br></p>
+<h1 id="JavaScript事件代理"><a href="#JavaScript事件代理" class="headerlink" title="JavaScript事件代理"></a>JavaScript事件代理</h1><hr>
+<p>参考：<a href="http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html" target="_blank" rel="external">JavaScript事件代理和委托</a><br> 在为多个元素绑定事件时，我们可以对父元素添加事件，从而将事件委托给父元素触发处理函数，这样就不需要去为那些元素一一绑定事件。在这次的任务中有一个练习是轮播图，轮播图中用于切换图片的按钮是使用的<code>&lt;ul&gt;</code>标签，HTML结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ul id=&quot;btn-list&quot;&gt;</div><div class="line">    &lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</div><div class="line">	&lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</div><div class="line">	&lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</div><div class="line">	&lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure></p>
+<p>如果不使用事件代理，那么我会通过循环来为这些按钮添加事件,就像下面这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var list=document.getElementsById(&quot;btn-list&quot;);</div><div class="line">var btns=list.getElementsByClassName(&quot;btn&quot;);</div><div class="line">for(var i=0,l=btns.length;i&lt;l;i++) &#123;</div><div class="line">	btns[i].onclick=function()&#123;...&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对于轮播图而言可能图片不会很多，需要遍历的元素也不会太多，使用循环为元素添加事件并不会带来什么的影响，但如果元素一多，可能就会影响性能或增加出错的可能性。<br>如果使用事件代理，就会简单很多，在子节点被点击之后，click事件就会从子节点开始向上冒泡，当事件传播到父节点时，再判断和获取我们需要处理的节点。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var btns=document.getElementById(&quot;btn-list&quot;);</div><div class="line">btns.addEventListener(&quot;click&quot;,function (e) &#123;</div><div class="line">	if(e.target&amp;&amp;e.target.tagName == &quot;LI&quot;)&#123;</div><div class="line">		function()&#123;...&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><strong>事件冒泡及捕获</strong><br>之前的介绍中已经说到了浏览器的事件冒泡机制。这里再详细介绍一下浏览器处理DOM事件的过程。对于事件的捕获和处理，不同的浏览器厂商有不同的处理机制，这里我们主要介绍W3C对DOM2.0定义的标准事件。<br>DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段，二、事件目标阶段，三、事件起泡阶段。如图：<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/201505192030.jpg" alt="JS事件捕获与事件原型冒泡图"><br>1.事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。<br>2.事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。<br>3.事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被一次触发。如果想阻止事件起泡，可以使用e.stopPropagation()（Firefox）或者e.cancelBubble=true（IE）来组织事件的冒泡传播。<br><br></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><hr>
+<p>通过这次任务了解了基本JavaScript知识、DOM操作方法，也能够实现轮播图、鼠标拖拽效果等，收获还是挺大的。在做这些练习的时候可以说是一点头绪都没有，连如何动手都不知道。在这里要推荐下<a href="www.imooc.com">慕课网</a>，我也是在这上面找到相关的视频才能够做出来任务中的一些练习。在做练习的时候还想着在笔记中写一些这次任务中的难点，但在做完之后却发现并没有什么难点可以写，可能写代码最难的还是思路吧。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/baidu-ife/" rel="tag"># baidu-ife</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/27/js-scope/" rel="next" title="JavaScript作用域学习笔记">
+                <i class="fa fa-chevron-left"></i> JavaScript作用域学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/12/baidu-ife-task1/" rel="prev" title="百度前端学院任务（一），HTML&CSS">
+                百度前端学院任务（一），HTML&CSS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="孔方宇" />
+          <p class="site-author-name" itemprop="name">孔方宇</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript的性能优化"><span class="nav-number">1.</span> <span class="nav-text">JavaScript的性能优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript事件代理"><span class="nav-number">2.</span> <span class="nav-text">JavaScript事件代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">孔方宇</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://frakkk.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'kongfangyu.com/2015/05/20/baidu-ife-task2/';
+          this.page.identifier = '2015/05/20/baidu-ife-task2/';
+          this.page.title = '百度前端技术学院任务（二），JavaScript';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://frakkk.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
