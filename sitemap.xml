@@ -65,14 +65,14 @@
   </url>
   
   <url>
-    <loc>kongfangyu.com/2015/05/06/build-blog/</loc>
+    <loc>kongfangyu.com/2016/03/27/cross-domain/</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>kongfangyu.com/2016/03/27/cross-domain/</loc>
+    <loc>kongfangyu.com/2015/05/06/build-blog/</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
@@ -93,13 +93,6 @@
   </url>
   
   <url>
-    <loc>kongfangyu.com/Demo/imageviewer/index.html</loc>
-    
-    <lastmod>2017-04-15T09:57:33.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>kongfangyu.com/Demo/imageviewer/style.css</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
@@ -108,6 +101,13 @@
   
   <url>
     <loc>kongfangyu.com/Demo/imageviewer/script.js</loc>
+    
+    <lastmod>2017-04-15T09:57:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>kongfangyu.com/Demo/imageviewer/index.html</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
@@ -149,28 +149,7 @@
   </url>
   
   <url>
-    <loc>kongfangyu.com/Demo/baidu-ife/task0002/task0002_4.html</loc>
-    
-    <lastmod>2017-04-15T09:57:33.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>kongfangyu.com/Demo/baidu-ife/task0002/task0002_1.html</loc>
-    
-    <lastmod>2017-04-15T09:57:33.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>kongfangyu.com/Demo/zhihu/invite_panel/json/invite_panel.json</loc>
-    
-    <lastmod>2017-04-15T09:57:33.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>kongfangyu.com/Demo/baidu-ife/task0002/task0002_5.html</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
@@ -184,7 +163,21 @@
   </url>
   
   <url>
-    <loc>kongfangyu.com/Demo/lookfeel/css/font-awesome.min.css</loc>
+    <loc>kongfangyu.com/Demo/zhihu/invite_panel/json/invite_panel.json</loc>
+    
+    <lastmod>2017-04-15T09:57:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>kongfangyu.com/Demo/baidu-ife/task0002/task0002_4.html</loc>
+    
+    <lastmod>2017-04-15T09:57:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>kongfangyu.com/Demo/baidu-ife/task0002/task0002_5.html</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
@@ -199,6 +192,13 @@
   
   <url>
     <loc>kongfangyu.com/Demo/lookfeel/css/style.css</loc>
+    
+    <lastmod>2017-04-15T09:57:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>kongfangyu.com/Demo/lookfeel/css/font-awesome.min.css</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
@@ -226,14 +226,14 @@
   </url>
   
   <url>
-    <loc>kongfangyu.com/Demo/baidu-ife/task0001/css/gallery.css</loc>
+    <loc>kongfangyu.com/Demo/baidu-ife/task0001/css/index.css</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>kongfangyu.com/Demo/baidu-ife/task0002/css/style.css</loc>
+    <loc>kongfangyu.com/Demo/baidu-ife/task0001/css/style.css</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
@@ -247,14 +247,14 @@
   </url>
   
   <url>
-    <loc>kongfangyu.com/Demo/baidu-ife/task0001/css/index.css</loc>
+    <loc>kongfangyu.com/Demo/baidu-ife/task0001/css/gallery.css</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>kongfangyu.com/Demo/baidu-ife/task0001/css/style.css</loc>
+    <loc>kongfangyu.com/Demo/baidu-ife/task0002/css/style.css</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
@@ -289,14 +289,14 @@
   </url>
   
   <url>
-    <loc>kongfangyu.com/Demo/baidu-ife/task0002/js/task2.1.js</loc>
+    <loc>kongfangyu.com/Demo/baidu-ife/task0002/js/task0002_5.js</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>kongfangyu.com/Demo/baidu-ife/task0002/js/task0002_5.js</loc>
+    <loc>kongfangyu.com/Demo/baidu-ife/task0002/js/task2.1.js</loc>
     
     <lastmod>2017-04-15T09:57:33.000Z</lastmod>
     

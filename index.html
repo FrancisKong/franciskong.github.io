@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
@@ -10,6 +10,13 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -68,7 +75,7 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="博客, 前端, javascript" />
@@ -82,7 +89,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
 
 
 
@@ -106,11 +113,12 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
+    tabs: true,
     motion: true,
     duoshuo: {
-      userId: 'undefined',
+      userId: '0',
       author: '博主'
     },
     algolia: {
@@ -131,24 +139,12 @@
 
 
 
-  <title> 孔方宇的博客 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+  <title>孔方宇的博客</title>
   
 
 
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-63429467-1', 'auto');
-  ga('send', 'pageview');
-</script>
 
 
 
@@ -159,6 +155,9 @@
 
 
 
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -183,7 +182,7 @@
       </a>
     </div>
       
-        <h1 class="site-subtitle" itemprop="description">make the world a better place</h1>
+        <p class="site-subtitle">make the world a better place</p>
       
   </div>
 
@@ -214,7 +213,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -224,7 +223,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -260,7 +259,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2016/03/27/cross-domain/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -278,17 +281,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/03/27/cross-domain/" itemprop="url">
-                  跨域方法总结
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2016/03/27/cross-domain/" itemprop="url">跨域方法总结</a></h1>
         
 
         <div class="post-meta">
@@ -314,6 +309,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/03/27/cross-domain/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/03/27/cross-domain/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -329,7 +335,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -392,18 +400,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -417,6 +422,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -429,7 +438,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2016/02/12/git-deploy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -447,17 +460,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2016/02/12/git-deploy/" itemprop="url">
-                  使用Git Hook自动部署代码
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2016/02/12/git-deploy/" itemprop="url">使用Git Hook自动部署代码</a></h1>
         
 
         <div class="post-meta">
@@ -483,6 +488,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/02/12/git-deploy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/02/12/git-deploy/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -498,7 +514,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -517,18 +535,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -542,6 +557,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -554,7 +573,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2015/12/27/webpack-learning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -572,17 +595,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/12/27/webpack-learning/" itemprop="url">
-                  webpack使用心得
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2015/12/27/webpack-learning/" itemprop="url">webpack使用心得</a></h1>
         
 
         <div class="post-meta">
@@ -608,6 +623,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/27/webpack-learning/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/27/webpack-learning/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -623,7 +649,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -642,18 +670,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -667,6 +692,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -679,7 +708,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2015/12/03/aliyun-nodejs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -697,17 +730,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/12/03/aliyun-nodejs/" itemprop="url">
-                  在阿里云上配置Node.js环境
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2015/12/03/aliyun-nodejs/" itemprop="url">在阿里云上配置Node.js环境</a></h1>
         
 
         <div class="post-meta">
@@ -733,6 +758,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/03/aliyun-nodejs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/12/03/aliyun-nodejs/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -748,7 +784,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -767,18 +805,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -792,6 +827,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -804,7 +843,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2015/09/21/vscode-intelligence/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -822,17 +865,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/09/21/vscode-intelligence/" itemprop="url">
-                  在Visual Studio Code中启用Node.js智能提示
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2015/09/21/vscode-intelligence/" itemprop="url">在Visual Studio Code中启用Node.js智能提示</a></h1>
         
 
         <div class="post-meta">
@@ -858,6 +893,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/09/21/vscode-intelligence/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/09/21/vscode-intelligence/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -873,7 +919,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -893,18 +941,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -918,6 +963,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -930,7 +979,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2015/08/30/js-closure/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -948,17 +1001,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/08/30/js-closure/" itemprop="url">
-                  Javascript闭包学习笔记
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2015/08/30/js-closure/" itemprop="url">Javascript闭包学习笔记</a></h1>
         
 
         <div class="post-meta">
@@ -984,6 +1029,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/30/js-closure/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/08/30/js-closure/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -999,7 +1055,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1023,18 +1081,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1048,6 +1103,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1060,7 +1119,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2015/06/07/js-prototype/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1078,17 +1141,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/06/07/js-prototype/" itemprop="url">
-                  JavaScript原型学习笔记
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2015/06/07/js-prototype/" itemprop="url">JavaScript原型学习笔记</a></h1>
         
 
         <div class="post-meta">
@@ -1114,6 +1169,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/06/07/js-prototype/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/06/07/js-prototype/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1129,7 +1195,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1148,18 +1216,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1173,6 +1238,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1185,7 +1254,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2015/05/27/js-scope/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1203,17 +1276,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/05/27/js-scope/" itemprop="url">
-                  JavaScript作用域学习笔记
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2015/05/27/js-scope/" itemprop="url">JavaScript作用域学习笔记</a></h1>
         
 
         <div class="post-meta">
@@ -1239,6 +1304,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/27/js-scope/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/05/27/js-scope/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1254,7 +1330,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1277,18 +1355,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1302,6 +1377,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1314,7 +1393,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2015/05/20/baidu-ife-task2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1332,17 +1415,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/05/20/baidu-ife-task2/" itemprop="url">
-                  百度前端技术学院任务（二），JavaScript
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2015/05/20/baidu-ife-task2/" itemprop="url">百度前端技术学院任务（二），JavaScript</a></h1>
         
 
         <div class="post-meta">
@@ -1368,6 +1443,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/20/baidu-ife-task2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/05/20/baidu-ife-task2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1383,7 +1469,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1402,18 +1490,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1427,6 +1512,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1439,7 +1528,11 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="kongfangyu.com/2015/05/12/baidu-ife-task1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1457,17 +1550,9 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
+          <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2015/05/12/baidu-ife-task1/" itemprop="url">
-                  百度前端学院任务（一），HTML&CSS
-                </a>
-              
-            
-          </h2>
+                <a class="post-title-link" href="/2015/05/12/baidu-ife-task1/" itemprop="url">百度前端学院任务（一），HTML&CSS</a></h1>
         
 
         <div class="post-meta">
@@ -1493,6 +1578,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/12/baidu-ife-task1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2015/05/12/baidu-ife-task1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -1508,7 +1604,9 @@
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -1527,18 +1625,15 @@
         
       
     </div>
+    
+    
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
-    <div>
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -1552,6 +1647,10 @@
         <div class="post-eof"></div>
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -1584,6 +1683,7 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
@@ -1597,14 +1697,14 @@
                alt="Francis" />
           <p class="site-author-name" itemprop="name">Francis</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
-           
+              <p class="site-description motion-element" itemprop="description">记录学习过程中点滴</p>
+          
         </div>
         <nav class="site-state motion-element">
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
+              <a href="/archives/">
                 <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -1727,6 +1827,10 @@
 
 
 
+
+
+
+
   
   <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
 
@@ -1749,46 +1853,58 @@
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
 
 
 
   
+  
 
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
 
   
 
 
-
-
-
-
-
-
-
-
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
 
 
 
   
 
 
+  
+
+    
+      <script id="dsq-count-scr" src="https://franciss-blog.disqus.com/count.js" async></script>
+    
+
+    
+
+  
 
 
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
 
   
 
