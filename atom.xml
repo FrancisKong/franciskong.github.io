@@ -4,9 +4,9 @@
   <subtitle>make the world a better place</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="kongfangyu.com/"/>
+  <link href="http://kongfangyu.com/"/>
   <updated>2017-04-15T09:57:33.000Z</updated>
-  <id>kongfangyu.com/</id>
+  <id>http://kongfangyu.com/</id>
   
   <author>
     <name>Francis</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>跨域方法总结</title>
-    <link href="kongfangyu.com/2016/03/27/cross-domain/"/>
-    <id>kongfangyu.com/2016/03/27/cross-domain/</id>
+    <link href="http://kongfangyu.com/2016/03/27/cross-domain/"/>
+    <id>http://kongfangyu.com/2016/03/27/cross-domain/</id>
     <published>2016-03-27T13:23:40.000Z</published>
     <updated>2017-04-15T09:57:33.000Z</updated>
     
@@ -137,14 +137,14 @@
     </summary>
     
     
-      <category term="跨域" scheme="kongfangyu.com/tags/%E8%B7%A8%E5%9F%9F/"/>
+      <category term="跨域" scheme="http://kongfangyu.com/tags/%E8%B7%A8%E5%9F%9F/"/>
     
   </entry>
   
   <entry>
     <title>使用Git Hook自动部署代码</title>
-    <link href="kongfangyu.com/2016/02/12/git-deploy/"/>
-    <id>kongfangyu.com/2016/02/12/git-deploy/</id>
+    <link href="http://kongfangyu.com/2016/02/12/git-deploy/"/>
+    <id>http://kongfangyu.com/2016/02/12/git-deploy/</id>
     <published>2016-02-12T15:02:12.000Z</published>
     <updated>2017-04-16T03:18:08.000Z</updated>
     
@@ -165,16 +165,16 @@
     </summary>
     
     
-      <category term="服务器" scheme="kongfangyu.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+      <category term="服务器" scheme="http://kongfangyu.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
-      <category term="git" scheme="kongfangyu.com/tags/git/"/>
+      <category term="git" scheme="http://kongfangyu.com/tags/git/"/>
     
   </entry>
   
   <entry>
     <title>webpack使用心得</title>
-    <link href="kongfangyu.com/2015/12/27/webpack-learning/"/>
-    <id>kongfangyu.com/2015/12/27/webpack-learning/</id>
+    <link href="http://kongfangyu.com/2015/12/27/webpack-learning/"/>
+    <id>http://kongfangyu.com/2015/12/27/webpack-learning/</id>
     <published>2015-12-27T11:36:48.000Z</published>
     <updated>2017-04-16T03:19:20.000Z</updated>
     
@@ -216,14 +216,14 @@
     </summary>
     
     
-      <category term="webpack" scheme="kongfangyu.com/tags/webpack/"/>
+      <category term="webpack" scheme="http://kongfangyu.com/tags/webpack/"/>
     
   </entry>
   
   <entry>
     <title>在阿里云上配置Node.js环境</title>
-    <link href="kongfangyu.com/2015/12/03/aliyun-nodejs/"/>
-    <id>kongfangyu.com/2015/12/03/aliyun-nodejs/</id>
+    <link href="http://kongfangyu.com/2015/12/03/aliyun-nodejs/"/>
+    <id>http://kongfangyu.com/2015/12/03/aliyun-nodejs/</id>
     <published>2015-12-03T13:04:00.000Z</published>
     <updated>2017-04-16T03:19:46.000Z</updated>
     
@@ -288,18 +288,18 @@
     </summary>
     
     
-      <category term="阿里云" scheme="kongfangyu.com/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+      <category term="阿里云" scheme="http://kongfangyu.com/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
     
-      <category term="node.js" scheme="kongfangyu.com/tags/node-js/"/>
+      <category term="node.js" scheme="http://kongfangyu.com/tags/node-js/"/>
     
-      <category term="服务器" scheme="kongfangyu.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+      <category term="服务器" scheme="http://kongfangyu.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
   </entry>
   
   <entry>
     <title>在Visual Studio Code中启用Node.js智能提示</title>
-    <link href="kongfangyu.com/2015/09/21/vscode-intelligence/"/>
-    <id>kongfangyu.com/2015/09/21/vscode-intelligence/</id>
+    <link href="http://kongfangyu.com/2015/09/21/vscode-intelligence/"/>
+    <id>http://kongfangyu.com/2015/09/21/vscode-intelligence/</id>
     <published>2015-09-21T13:25:28.000Z</published>
     <updated>2017-04-16T03:18:46.000Z</updated>
     
@@ -323,18 +323,18 @@
     </summary>
     
     
-      <category term="node.js" scheme="kongfangyu.com/tags/node-js/"/>
+      <category term="node.js" scheme="http://kongfangyu.com/tags/node-js/"/>
     
-      <category term="visual stuio code" scheme="kongfangyu.com/tags/visual-stuio-code/"/>
+      <category term="visual stuio code" scheme="http://kongfangyu.com/tags/visual-stuio-code/"/>
     
-      <category term="智能提示" scheme="kongfangyu.com/tags/%E6%99%BA%E8%83%BD%E6%8F%90%E7%A4%BA/"/>
+      <category term="智能提示" scheme="http://kongfangyu.com/tags/%E6%99%BA%E8%83%BD%E6%8F%90%E7%A4%BA/"/>
     
   </entry>
   
   <entry>
     <title>Javascript闭包学习笔记</title>
-    <link href="kongfangyu.com/2015/08/30/js-closure/"/>
-    <id>kongfangyu.com/2015/08/30/js-closure/</id>
+    <link href="http://kongfangyu.com/2015/08/30/js-closure/"/>
+    <id>http://kongfangyu.com/2015/08/30/js-closure/</id>
     <published>2015-08-30T15:01:50.000Z</published>
     <updated>2017-04-16T03:18:23.000Z</updated>
     
@@ -379,16 +379,16 @@
     </summary>
     
     
-      <category term="javascript" scheme="kongfangyu.com/tags/javascript/"/>
+      <category term="javascript" scheme="http://kongfangyu.com/tags/javascript/"/>
     
-      <category term="闭包" scheme="kongfangyu.com/tags/%E9%97%AD%E5%8C%85/"/>
+      <category term="闭包" scheme="http://kongfangyu.com/tags/%E9%97%AD%E5%8C%85/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript原型学习笔记</title>
-    <link href="kongfangyu.com/2015/06/07/js-prototype/"/>
-    <id>kongfangyu.com/2015/06/07/js-prototype/</id>
+    <link href="http://kongfangyu.com/2015/06/07/js-prototype/"/>
+    <id>http://kongfangyu.com/2015/06/07/js-prototype/</id>
     <published>2015-06-07T11:31:28.000Z</published>
     <updated>2017-04-16T03:18:33.000Z</updated>
     
@@ -411,16 +411,16 @@
     </summary>
     
     
-      <category term="javascript" scheme="kongfangyu.com/tags/javascript/"/>
+      <category term="javascript" scheme="http://kongfangyu.com/tags/javascript/"/>
     
-      <category term="原型" scheme="kongfangyu.com/tags/%E5%8E%9F%E5%9E%8B/"/>
+      <category term="原型" scheme="http://kongfangyu.com/tags/%E5%8E%9F%E5%9E%8B/"/>
     
   </entry>
   
   <entry>
     <title>JavaScript作用域学习笔记</title>
-    <link href="kongfangyu.com/2015/05/27/js-scope/"/>
-    <id>kongfangyu.com/2015/05/27/js-scope/</id>
+    <link href="http://kongfangyu.com/2015/05/27/js-scope/"/>
+    <id>http://kongfangyu.com/2015/05/27/js-scope/</id>
     <published>2015-05-27T12:14:26.000Z</published>
     <updated>2017-04-16T03:18:41.000Z</updated>
     
@@ -474,16 +474,16 @@
     </summary>
     
     
-      <category term="javascript" scheme="kongfangyu.com/tags/javascript/"/>
+      <category term="javascript" scheme="http://kongfangyu.com/tags/javascript/"/>
     
-      <category term="作用域" scheme="kongfangyu.com/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F/"/>
+      <category term="作用域" scheme="http://kongfangyu.com/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F/"/>
     
   </entry>
   
   <entry>
     <title>百度前端技术学院任务（二），JavaScript</title>
-    <link href="kongfangyu.com/2015/05/20/baidu-ife-task2/"/>
-    <id>kongfangyu.com/2015/05/20/baidu-ife-task2/</id>
+    <link href="http://kongfangyu.com/2015/05/20/baidu-ife-task2/"/>
+    <id>http://kongfangyu.com/2015/05/20/baidu-ife-task2/</id>
     <published>2015-05-20T10:35:44.000Z</published>
     <updated>2017-04-16T03:17:19.000Z</updated>
     
@@ -514,16 +514,16 @@
     </summary>
     
     
-      <category term="baidu-ife" scheme="kongfangyu.com/tags/baidu-ife/"/>
+      <category term="baidu-ife" scheme="http://kongfangyu.com/tags/baidu-ife/"/>
     
-      <category term="javascript" scheme="kongfangyu.com/tags/javascript/"/>
+      <category term="javascript" scheme="http://kongfangyu.com/tags/javascript/"/>
     
   </entry>
   
   <entry>
     <title>百度前端学院任务（一），HTML&amp;CSS</title>
-    <link href="kongfangyu.com/2015/05/12/baidu-ife-task1/"/>
-    <id>kongfangyu.com/2015/05/12/baidu-ife-task1/</id>
+    <link href="http://kongfangyu.com/2015/05/12/baidu-ife-task1/"/>
+    <id>http://kongfangyu.com/2015/05/12/baidu-ife-task1/</id>
     <published>2015-05-12T15:18:28.000Z</published>
     <updated>2017-04-16T03:17:07.000Z</updated>
     
@@ -553,18 +553,18 @@
     </summary>
     
     
-      <category term="baidu-ife" scheme="kongfangyu.com/tags/baidu-ife/"/>
+      <category term="baidu-ife" scheme="http://kongfangyu.com/tags/baidu-ife/"/>
     
-      <category term="html" scheme="kongfangyu.com/tags/html/"/>
+      <category term="html" scheme="http://kongfangyu.com/tags/html/"/>
     
-      <category term="css" scheme="kongfangyu.com/tags/css/"/>
+      <category term="css" scheme="http://kongfangyu.com/tags/css/"/>
     
   </entry>
   
   <entry>
     <title>使用Hexo搭建博客</title>
-    <link href="kongfangyu.com/2015/05/06/build-blog/"/>
-    <id>kongfangyu.com/2015/05/06/build-blog/</id>
+    <link href="http://kongfangyu.com/2015/05/06/build-blog/"/>
+    <id>http://kongfangyu.com/2015/05/06/build-blog/</id>
     <published>2015-05-06T10:53:55.000Z</published>
     <updated>2017-04-15T09:57:33.000Z</updated>
     
@@ -597,9 +597,9 @@
     </summary>
     
     
-      <category term="hexo" scheme="kongfangyu.com/tags/hexo/"/>
+      <category term="hexo" scheme="http://kongfangyu.com/tags/hexo/"/>
     
-      <category term="博客" scheme="kongfangyu.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+      <category term="博客" scheme="http://kongfangyu.com/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
