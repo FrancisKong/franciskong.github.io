@@ -5,14 +5,14 @@
 # Site
 title: 孔方宇的博客
 subtitle: make the world a better place
-description: 记录学习过程中点滴
+description: make the world a better place
 author: Francis
 language: zh-Hans
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: kongfangyu.com
+url: http://kongfangyu.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -62,6 +62,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
+disqus_shortname: blog-ufftmpj92z
 theme: next
 
 # Deployment
