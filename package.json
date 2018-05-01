@@ -1,13 +1,13 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "blog",
+  "version": "1.0.0",
   "private": true,
   "hexo": {
-    "version": "3.3.1"
+    "version": "3.7.1"
   },
   "dependencies": {
     "global": "^4.3.2",
-    "hexo": "^3.0.0",
+    "hexo": "^3.7.1",
     "hexo-cli": "^1.0.3",
     "hexo-deployer-git": "0.0.4",
     "hexo-generator-archive": "^0.1.0",
@@ -17,6 +17,7 @@
     "hexo-generator-sitemap": "^1.0.1",
     "hexo-generator-tag": "^0.1.0",
     "hexo-renderer-ejs": "^0.1.0",
+    "hexo-renderer-jade": "^0.4.1",
     "hexo-renderer-marked": "^0.2.4",
     "hexo-renderer-stylus": "^0.2.0",
     "hexo-server": "^0.1.2"

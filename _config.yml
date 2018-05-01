@@ -8,7 +8,7 @@ subtitle: make the world a better place
 description: make the world a better place
 author: Francis
 language: zh-Hans
-timezone:
+#timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -62,9 +62,9 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-disqus_shortname: blog-ufftmpj92z
-theme: next
-google_analytics: UA-63429467-1
+# disqus_shortname: blog-ufftmpj92z
+theme: apollo
+# google_analytics: UA-63429467-1
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
