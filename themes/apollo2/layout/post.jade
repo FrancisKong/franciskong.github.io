@@ -1,5 +1,8 @@
 extends partial/layout
 
+block head
+  include partial/google_ad
+
 block site_title
     != page.title + " · " + config.title
 
@@ -18,4 +21,3 @@ block pagination
 
 block copyright
     include partial/copyright
-    include partial/google_ad
