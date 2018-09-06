@@ -1,0 +1,20 @@
+menu:
+    Blog: /
+    Archive: /archives/
+    # Weibo: http://weibo.com/sunchongsheng
+    GitHub: https://github.com/FrancisKong
+    Rss: /atom.xml
+
+favicon: /favicon.png
+logo: /favicon.png
+
+# Comment
+# e.g disqus: seansun
+disqus: blog-ufftmpj92z
+
+# Analytics
+# google-analytics:
+ga: UA-63429467-1
+
+# Copyright Infomation
+startyear: 2018
