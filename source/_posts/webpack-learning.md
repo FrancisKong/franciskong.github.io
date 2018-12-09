@@ -286,7 +286,7 @@ module.exports = {
 ```
 
 
-  [1]: http://7xj5pg.com1.z0.glb.clouddn.com/201512241942.png
+  [1]: https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dhahy2kj2206103tl6.jpg
   [2]: https://webpack.github.io/
   [3]: https://nodejs.org
   [4]: http://webpack.github.io/docs/list-of-loaders.html
