@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://kongfangyu.com/2015/12/27/webpack-learning/</loc>
+    
+    <lastmod>2018-12-09T04:23:09.497Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://kongfangyu.com/2015/09/21/vscode-intelligence/</loc>
+    
+    <lastmod>2018-12-09T04:21:22.812Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://kongfangyu.com/2015/05/27/js-scope/</loc>
+    
+    <lastmod>2018-12-09T04:19:54.854Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://kongfangyu.com/2015/05/20/baidu-ife-task2/</loc>
+    
+    <lastmod>2018-12-09T04:19:01.724Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://kongfangyu.com/2018/08/18/%E4%BD%BF%E7%94%A8-Docker-%E9%83%A8%E7%BD%B2-Node-js-%E9%A1%B9%E7%9B%AE/</loc>
     
     <lastmod>2018-08-18T11:53:26.706Z</lastmod>
@@ -12,27 +40,6 @@
     <loc>http://kongfangyu.com/2015/12/03/aliyun-nodejs/</loc>
     
     <lastmod>2017-04-16T03:19:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://kongfangyu.com/2015/12/27/webpack-learning/</loc>
-    
-    <lastmod>2017-04-16T03:19:20.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://kongfangyu.com/2015/09/21/vscode-intelligence/</loc>
-    
-    <lastmod>2017-04-16T03:18:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://kongfangyu.com/2015/05/27/js-scope/</loc>
-    
-    <lastmod>2017-04-16T03:18:41.000Z</lastmod>
     
   </url>
   
@@ -54,13 +61,6 @@
     <loc>http://kongfangyu.com/2016/02/12/git-deploy/</loc>
     
     <lastmod>2017-04-16T03:18:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://kongfangyu.com/2015/05/20/baidu-ife-task2/</loc>
-    
-    <lastmod>2017-04-16T03:17:19.000Z</lastmod>
     
   </url>
   

@@ -210,9 +210,9 @@
     <link href="http://kongfangyu.com/2015/12/27/webpack-learning/"/>
     <id>http://kongfangyu.com/2015/12/27/webpack-learning/</id>
     <published>2015-12-27T11:36:48.000Z</published>
-    <updated>2017-04-16T03:19:20.000Z</updated>
+    <updated>2018-12-09T04:23:09.497Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="http://7xj5pg.com1.z0.glb.clouddn.com/201512241942.png" alt="此处输入图片的描述"><br><a href="https://webpack.github.io/" target="_blank" rel="noopener">webpack</a>是最近非常流行的一个模块加载器，它不仅能够像<code>require.js</code>一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p><img src="https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dhahy2kj2206103tl6.jpg" alt="此处输入图片的描述"><br><a href="https://webpack.github.io/" target="_blank" rel="noopener">webpack</a>是最近非常流行的一个模块加载器，它不仅能够像<code>require.js</code>一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。<br><a id="more"></a></p>
 <h1 id="安装webpack"><a href="#安装webpack" class="headerlink" title="安装webpack"></a>安装webpack</h1><hr>
 <p>首先需要安装<a href="https://nodejs.org" target="_blank" rel="noopener">Node.js</a><br>初始化项目（这里会要求你回答一系列问题，如果不在意可以一路回车）：<br><code>npm init</code><br>安装webpack，并将依赖关系添加到<code>package.json</code>:<br><code>npm install webpack --save-dev</code></p>
 <h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><hr>
@@ -245,7 +245,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://7xj5pg.com1.z0.glb.clouddn.com/201512241942.png&quot; alt=&quot;此处输入图片的描述&quot;&gt;&lt;br&gt;&lt;a href=&quot;https://webpack.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;webpack&lt;/a&gt;是最近非常流行的一个模块加载器，它不仅能够像&lt;code&gt;require.js&lt;/code&gt;一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。&lt;br&gt;
+      &lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dhahy2kj2206103tl6.jpg&quot; alt=&quot;此处输入图片的描述&quot;&gt;&lt;br&gt;&lt;a href=&quot;https://webpack.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;webpack&lt;/a&gt;是最近非常流行的一个模块加载器，它不仅能够像&lt;code&gt;require.js&lt;/code&gt;一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。&lt;br&gt;
     
     </summary>
     
@@ -335,7 +335,7 @@
     <link href="http://kongfangyu.com/2015/09/21/vscode-intelligence/"/>
     <id>http://kongfangyu.com/2015/09/21/vscode-intelligence/</id>
     <published>2015-09-21T13:25:28.000Z</published>
-    <updated>2017-04-16T03:18:46.000Z</updated>
+    <updated>2018-12-09T04:21:22.812Z</updated>
     
     <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
 <p>最近一直在使用<a href="https://www.visualstudio.com/" target="_blank" rel="noopener">visual studio code(以下简称vsc)</a>作为我的主力编辑器，不过最近在使用vsc写node.js代码时却碰到了一个问题：竟然没有智能提示！！！对于我这种离开智能提示就写不出代码的人简直不能忍，于是赶紧去官网查了一下文档。原来vsc使用的是<strong>TypeScript definition</strong>文件为vsc提供基于JavaScript框架的智能提示以及在使用错误的API时的警告。<br><a id="more"></a><br><br></p>
@@ -346,7 +346,7 @@
 <li>在项目的根目录中安装node.js的<code>.d.ts</code>文件：<code>tsd query node --action install</code></li>
 <li>安装后你就会发现在你的目录中多了一个<code>.typings</code>文件夹，这个文件夹中就是下载的<code>.d.ts</code>文件，最后在相应的文件中引入node.js的<code>.d.ts</code>文件：<br><code>/// &lt;reference path=&quot;typings/node/node.d.ts&quot;/&gt;</code></li>
 </ol>
-<p><strong>更简单的方法</strong><br>如果每次都需要去下载再引入文件也太麻烦，vsc也给我们提供一个简便的方法，我们可以在敲下对应的Framework,Runtime的全局变量后(例如node.js的<code>__dirname</code>,Angular的<code>angular</code>)，再按下<code>ctrl+k</code>就会出现下面的黄色小灯泡。<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/20150921203737.jpg" alt=""><br>点击灯泡后就会出现相应下载选项<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/20150921203749.jpg" alt=""><br>选择后vsc就会将下载的<code>.d.ts</code>文件放在<code>.typings</code>文件夹中，然后就可以尽情的敲代码了。</p>
+<p><strong>更简单的方法</strong><br>如果每次都需要去下载再引入文件也太麻烦，vsc也给我们提供一个简便的方法，我们可以在敲下对应的Framework,Runtime的全局变量后(例如node.js的<code>__dirname</code>,Angular的<code>angular</code>)，再按下<code>ctrl+k</code>就会出现下面的黄色小灯泡。<br><img src="https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dha4ywtj208301ea9y.jpg" alt=""><br>点击灯泡后就会出现相应下载选项<br><img src="https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dha8159j20dd02ejry.jpg" alt=""><br>选择后vsc就会将下载的<code>.d.ts</code>文件放在<code>.typings</code>文件夹中，然后就可以尽情的敲代码了。</p>
 ]]></content>
     
     <summary type="html">
@@ -456,7 +456,7 @@
     <link href="http://kongfangyu.com/2015/05/27/js-scope/"/>
     <id>http://kongfangyu.com/2015/05/27/js-scope/</id>
     <published>2015-05-27T12:14:26.000Z</published>
-    <updated>2017-04-16T03:18:41.000Z</updated>
+    <updated>2018-12-09T04:19:54.854Z</updated>
     
     <content type="html"><![CDATA[<p><br></p>
 <h1 id="JavaScript作用域"><a href="#JavaScript作用域" class="headerlink" title="JavaScript作用域"></a>JavaScript作用域</h1><hr>
@@ -477,7 +477,7 @@
 <li>在一个函数对象被调用的时候，会创建一个活动对象(activation object)，该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后对于每一个函数的形参，都命名为该活动对象的命名参数,然后将这个活动对象做为此时的作用域链(scope chain)最前端,并将这个函数对象的[[scope]]加入到scope chain中。<br>看个例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function func(arg) &#123;</span><br><span class="line">	alert(arg);</span><br><span class="line">&#125;</span><br><span class="line">func(&quot;hello world!&quot;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>在函数<code>func</code>创建时，它的作用域链会填入一个全局对象，该全局对象包含了所有变量，如下图所示(图片只例举了全部变量的一部分)：<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/201505262249.png" alt=""><br>执行此函数时会创建一个称为“运行期上下文(execution context)”的内部对象，运行期上下文定义了函数执行时的环境。每个运行期上下文都有自己的作用域链，用于标识符解析，当运行期上下文被创建时，而它的作用域链初始化为当前运行函数的[[Scope]]所包含的对象。<br>这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中，它们共同组成了一个新的对象，叫“活动对象(activation object)”。该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁，新的作用域链如下图所示：<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/201505262301.png" alt=""><br>在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。</p>
+<p>在函数<code>func</code>创建时，它的作用域链会填入一个全局对象，该全局对象包含了所有变量，如下图所示(图片只例举了全部变量的一部分)：<br><img src="https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dha4h99j20g0063t8l.jpg" alt=""><br>执行此函数时会创建一个称为“运行期上下文(execution context)”的内部对象，运行期上下文定义了函数执行时的环境。每个运行期上下文都有自己的作用域链，用于标识符解析，当运行期上下文被创建时，而它的作用域链初始化为当前运行函数的[[Scope]]所包含的对象。<br>这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中，它们共同组成了一个新的对象，叫“活动对象(activation object)”。该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁，新的作用域链如下图所示：<br><img src="https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dha64stj20iy0cgt8r.jpg" alt=""><br>在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。</p>
 <h1 id="JavaScript的声明提升"><a href="#JavaScript的声明提升" class="headerlink" title="JavaScript的声明提升"></a>JavaScript的声明提升</h1><hr>
 <p>可能有的资料中将声明提升(hoist)称为预编译，这是不准确的，<a href="http://zh.wikipedia.org/wiki/JavaScript" target="_blank" rel="noopener">维基百科</a>对JavaScript的特性也有说明:</p>
 <blockquote>
@@ -519,7 +519,7 @@
     <link href="http://kongfangyu.com/2015/05/20/baidu-ife-task2/"/>
     <id>http://kongfangyu.com/2015/05/20/baidu-ife-task2/</id>
     <published>2015-05-20T10:35:44.000Z</published>
-    <updated>2017-04-16T03:17:19.000Z</updated>
+    <updated>2018-12-09T04:19:01.724Z</updated>
     
     <content type="html"><![CDATA[<p>对于这次任务不得不吐槽下题目的难度，即使任务的时间非常宽裕，但对于我这种初学者来说很多题目是完全不知道如何动手，只能不断的搜索相关的例子，来获得解决问题的思路，所以完成这次任务的时间比deadline多了好几天。但通过这次艰难的战斗，JS功力增长了几分，也掌握了一些页面效果的实现方法，这也算是这么多天的幸苦带来的回报吧。这次任务的成果：<a href="https://github.com/FrancisKong/ife/tree/master/task/task0002/work/FrancisKong" target="_blank" rel="noopener">源码</a>、<a href="http://kongfangyu.com/Demo/baidu-ife/task0002/task0002_1.html">在线预览</a>，下面是关于这次任务的笔记。<br><a id="more"></a><br><br></p>
 <h1 id="JavaScript的性能优化"><a href="#JavaScript的性能优化" class="headerlink" title="JavaScript的性能优化"></a>JavaScript的性能优化</h1><hr>
@@ -536,7 +536,7 @@
 <p>参考：<a href="http://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html" target="_blank" rel="noopener">JavaScript事件代理和委托</a><br> 在为多个元素绑定事件时，我们可以对父元素添加事件，从而将事件委托给父元素触发处理函数，这样就不需要去为那些元素一一绑定事件。在这次的任务中有一个练习是轮播图，轮播图中用于切换图片的按钮是使用的<code>&lt;ul&gt;</code>标签，HTML结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul id=&quot;btn-list&quot;&gt;</span><br><span class="line">    &lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</span><br><span class="line">	&lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</span><br><span class="line">	&lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</span><br><span class="line">	&lt;li class=&quot;btn&quot;&gt;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></p>
 <p>如果不使用事件代理，那么我会通过循环来为这些按钮添加事件,就像下面这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var list=document.getElementsById(&quot;btn-list&quot;);</span><br><span class="line">var btns=list.getElementsByClassName(&quot;btn&quot;);</span><br><span class="line">for(var i=0,l=btns.length;i&lt;l;i++) &#123;</span><br><span class="line">	btns[i].onclick=function()&#123;...&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>对于轮播图而言可能图片不会很多，需要遍历的元素也不会太多，使用循环为元素添加事件并不会带来什么的影响，但如果元素一多，可能就会影响性能或增加出错的可能性。<br>如果使用事件代理，就会简单很多，在子节点被点击之后，click事件就会从子节点开始向上冒泡，当事件传播到父节点时，再判断和获取我们需要处理的节点。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var btns=document.getElementById(&quot;btn-list&quot;);</span><br><span class="line">btns.addEventListener(&quot;click&quot;,function (e) &#123;</span><br><span class="line">	if(e.target&amp;&amp;e.target.tagName == &quot;LI&quot;)&#123;</span><br><span class="line">		function()&#123;...&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p><strong>事件冒泡及捕获</strong><br>之前的介绍中已经说到了浏览器的事件冒泡机制。这里再详细介绍一下浏览器处理DOM事件的过程。对于事件的捕获和处理，不同的浏览器厂商有不同的处理机制，这里我们主要介绍W3C对DOM2.0定义的标准事件。<br>DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段，二、事件目标阶段，三、事件起泡阶段。如图：<br><img src="http://7xj5pg.com1.z0.glb.clouddn.com/201505192030.jpg" alt="JS事件捕获与事件原型冒泡图"><br>1.事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。<br>2.事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。<br>3.事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被一次触发。如果想阻止事件起泡，可以使用e.stopPropagation()（Firefox）或者e.cancelBubble=true（IE）来组织事件的冒泡传播。<br><br></p>
+<p><strong>事件冒泡及捕获</strong><br>之前的介绍中已经说到了浏览器的事件冒泡机制。这里再详细介绍一下浏览器处理DOM事件的过程。对于事件的捕获和处理，不同的浏览器厂商有不同的处理机制，这里我们主要介绍W3C对DOM2.0定义的标准事件。<br>DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段，二、事件目标阶段，三、事件起泡阶段。如图：<br><img src="https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dha9khsj20f00dimzj.jpg" alt="JS事件捕获与事件原型冒泡图"><br>1.事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。<br>2.事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。<br>3.事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被一次触发。如果想阻止事件起泡，可以使用e.stopPropagation()（Firefox）或者e.cancelBubble=true（IE）来组织事件的冒泡传播。<br><br></p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><hr>
 <p>通过这次任务了解了基本JavaScript知识、DOM操作方法，也能够实现轮播图、鼠标拖拽效果等，收获还是挺大的。在做这些练习的时候可以说是一点头绪都没有，连如何动手都不知道。在这里要推荐下<a href="www.imooc.com">慕课网</a>，我也是在这上面找到相关的视频才能够做出来任务中的一些练习。在做练习的时候还想着在笔记中写一些这次任务中的难点，但在做完之后却发现并没有什么难点可以写，可能写代码最难的还是思路吧。</p>
 ]]></content>

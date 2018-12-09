@@ -11,7 +11,7 @@
 <p>上面的例子中，test 对象从 Bar.prototype 和 Foo.prototype 继承下来；因此， 它能访问 Foo 的原型方法 method。同时，它也能够访问那个定义在原型上的 Foo 实例属性 value。 需要注意的是 new Bar() 不会创造出一个新的 Foo 实例，而是 重复使用它原型上的那个实例；因此，所有的 Bar 实例都会共享相同的 value 属性。<br><strong>性能</strong><br>在原型链上查找属性比较耗时，对性能有副作用，这在性能要求苛刻的情况下很重要。另外，试图访问不存在的属性时会遍历整个原型链,并返回undefined。当使用for in循环遍历对象的属性时，原型链上的所有属性都将被访问。<br><strong>hasOwnProperty</strong><br>如果需要检测一个属性自身定义的还是原型链上，可以使用Object.prototype的<a href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/Object/hasOwnProperty" target="_blank" rel="noopener">hasOwnProperty</a>，该方法是 JS中唯一一个只涉及对象自身属性而不会遍历原型链的方法。<br><br></p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><hr>
 <p>在上面的代码中，我有使用<code>__proto__</code>这个属性，但这并不是标准的用法。使用这种写法，会让子类能够修改父类的原型链，在大多数时候，这不是想要的结果。所以在平时编码的中，要尽量避免这种写法。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2015/08/30/js-closure/" class="prev">上一篇</a><a href="/2015/05/27/js-scope/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'blog-ufftmpj92z';
+</div></article></div></main><footer><div class="paginator"><a href="/2015/08/30/js-closure/" class="prev">PREV</a><a href="/2015/05/27/js-scope/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'blog-ufftmpj92z';
 var disqus_identifier = '2015/06/07/js-prototype/';
 var disqus_title = 'JavaScript原型学习笔记';
 var disqus_url = 'http://kongfangyu.com/2015/06/07/js-prototype/';
