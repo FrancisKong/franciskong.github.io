@@ -52,5 +52,9 @@ docker build -t imageName .
 ## 部署构建后的镜像
 
 接下来的步骤则是部署构建后的镜像了，这里你可以选择将镜像上传到私有库中，然后在服务器上 pull，或者直接将[镜像导出](https://docs.docker.com/engine/reference/commandline/save/)，上传到服务器中。
+
 因为我司使用的是阿里云 ECS，所以这里选择了[阿里云容器服务](https://dev.aliyun.com/)作为私有镜像库，目前服务是免费的。
+
 为了减少手动构建的成本，可以直接绑定 github, gitlab 或者 bitbucket 帐号，这样可以在 push 代码到特定分支或者 push tag 后触发自动构建，省去了人工拉取代码构建镜像的步骤。同时，阿里云容器服务还提供了构建成功后的 webhook，可以通过 webhook 在服务器上执行拉取新镜像，启动容器等操作。关于阿里云容器服务的具体操作请参考[阿里云容器镜像服务帮助文档](https://help.aliyun.com/document_detail/60997.html?spm=a2c4g.11186623.6.549.X9W7TV)。
+
+为了通过 webhook 操作 Docker 容器、镜像等，你可能需要先启用 Docker 的 remote API，请参考[How do I enable the remote API for dockerd](https://success.docker.com/article/how-do-i-enable-the-remote-api-for-dockerd)
