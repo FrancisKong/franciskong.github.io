@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://kongfangyu.com/2018/08/18/%E4%BD%BF%E7%94%A8-Docker-%E9%83%A8%E7%BD%B2-Node-js-%E9%A1%B9%E7%9B%AE/</loc>
+    
+    <lastmod>2019-04-11T03:54:40.219Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://kongfangyu.com/2015/12/27/webpack-learning/</loc>
     
     <lastmod>2018-12-09T04:23:09.497Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://kongfangyu.com/2015/05/20/baidu-ife-task2/</loc>
     
     <lastmod>2018-12-09T04:19:01.724Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://kongfangyu.com/2018/08/18/%E4%BD%BF%E7%94%A8-Docker-%E9%83%A8%E7%BD%B2-Node-js-%E9%A1%B9%E7%9B%AE/</loc>
-    
-    <lastmod>2018-08-18T11:53:26.706Z</lastmod>
     
   </url>
   
