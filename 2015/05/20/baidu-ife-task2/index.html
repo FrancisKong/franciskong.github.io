@@ -19,7 +19,7 @@
 <p><strong>事件冒泡及捕获</strong><br>之前的介绍中已经说到了浏览器的事件冒泡机制。这里再详细介绍一下浏览器处理DOM事件的过程。对于事件的捕获和处理，不同的浏览器厂商有不同的处理机制，这里我们主要介绍W3C对DOM2.0定义的标准事件。<br>DOM2.0模型将事件处理流程分为三个阶段：一、事件捕获阶段，二、事件目标阶段，三、事件起泡阶段。如图：<br><img src="https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dha9khsj20f00dimzj.jpg" alt="JS事件捕获与事件原型冒泡图"><br>1.事件捕获：当某个元素触发某个事件（如onclick），顶层对象document就会发出一个事件流，随着DOM树的节点向目标元素节点流去，直到到达事件真正发生的目标元素。在这个过程中，事件相应的监听函数是不会被触发的。<br>2.事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。<br>3.事件起泡：从目标元素开始，往顶层元素传播。途中如果有节点绑定了相应的事件处理函数，这些函数都会被一次触发。如果想阻止事件起泡，可以使用e.stopPropagation()（Firefox）或者e.cancelBubble=true（IE）来组织事件的冒泡传播。<br><br></p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><hr>
 <p>通过这次任务了解了基本JavaScript知识、DOM操作方法，也能够实现轮播图、鼠标拖拽效果等，收获还是挺大的。在做这些练习的时候可以说是一点头绪都没有，连如何动手都不知道。在这里要推荐下<a href="www.imooc.com">慕课网</a>，我也是在这上面找到相关的视频才能够做出来任务中的一些练习。在做练习的时候还想着在笔记中写一些这次任务中的难点，但在做完之后却发现并没有什么难点可以写，可能写代码最难的还是思路吧。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2015/05/27/js-scope/" class="prev">PREV</a><a href="/2015/05/12/baidu-ife-task1/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'blog-ufftmpj92z';
+</div></article></div></main><footer><div class="paginator"><a href="/2015/05/27/js-scope/" class="prev">上一篇</a><a href="/2015/05/12/baidu-ife-task1/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'blog-ufftmpj92z';
 var disqus_identifier = '2015/05/20/baidu-ife-task2/';
 var disqus_title = '百度前端技术学院任务（二），JavaScript';
 var disqus_url = 'http://kongfangyu.com/2015/05/20/baidu-ife-task2/';

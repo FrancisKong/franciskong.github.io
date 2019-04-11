@@ -9,7 +9,7 @@
 <p>默认的情况下，脚本是无法执行的，所以我们需要为这个脚本添加可执行权限<br><code>chmod +x post-receive</code></p>
 <h2 id="本地仓库配置"><a href="#本地仓库配置" class="headerlink" title="本地仓库配置"></a>本地仓库配置</h2><hr>
 <p>这里的本地仓库就是你本机的仓库，不再是服务器上的了。我们要在原有的Git项目中加入一条新的remote源，以后往这个源推送代码就会自动部署了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add prod user@ip_address/repos/test.git</span><br><span class="line">git push prod master</span><br></pre></td></tr></table></figure></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2016/03/27/cross-domain/" class="prev">PREV</a><a href="/2015/12/27/webpack-learning/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'blog-ufftmpj92z';
+</div></article></div></main><footer><div class="paginator"><a href="/2016/03/27/cross-domain/" class="prev">上一篇</a><a href="/2015/12/27/webpack-learning/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'blog-ufftmpj92z';
 var disqus_identifier = '2016/02/12/git-deploy/';
 var disqus_title = '使用Git Hook自动部署代码';
 var disqus_url = 'http://kongfangyu.com/2016/02/12/git-deploy/';
