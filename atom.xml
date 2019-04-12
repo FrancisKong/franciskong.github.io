@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kongfangyu.com/"/>
-  <updated>2019-04-11T03:54:40.219Z</updated>
+  <updated>2019-04-12T06:54:29.413Z</updated>
   <id>http://kongfangyu.com/</id>
   
   <author>
@@ -14,6 +14,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>国内服务器如何升级 Nextcloud</title>
+    <link href="http://kongfangyu.com/2019/04/12/%E5%9B%BD%E5%86%85%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A6%82%E4%BD%95%E5%8D%87%E7%BA%A7-Nextcloud/"/>
+    <id>http://kongfangyu.com/2019/04/12/国内服务器如何升级-Nextcloud/</id>
+    <published>2019-04-12T06:44:16.000Z</published>
+    <updated>2019-04-12T06:54:29.413Z</updated>
+    
+    <content type="html"><![CDATA[<p>因为 nextcloud 官方服务器从国内访问特别慢，在更新时经常会卡在下载升级包的过程中，因此需要手动下载升级包并更新。<br><a id="more"></a></p>
+<h4 id="1-打开更新器"><a href="#1-打开更新器" class="headerlink" title="1. 打开更新器"></a>1. 打开更新器</h4><p>在浏览器中打开 nextcloud 的设置页面，打开更新器并开始更新，因为国内访问 nextcloud 网站慢，此时会卡在下载升级包的过程中，nextcloud 也会进入维护模式，暂时无法使用。</p>
+<h4 id="2-手动下载压缩包"><a href="#2-手动下载压缩包" class="headerlink" title="2. 手动下载压缩包"></a>2. 手动下载压缩包</h4><p>复制升级包的下载链接，将压缩包手动下载到本机，然后上传到服务器的 <code>nextcloud/data/updater-xxxxxx/downloads</code> 文件夹下（xxxxxx 是一个随机字符串，请手动替换）</p>
+<h4 id="3-修改-step-文件"><a href="#3-修改-step-文件" class="headerlink" title="3. 修改 .step 文件"></a>3. 修改 .step 文件</h4><p>在 <code>nextcloud/data/updater-xxxxxx/</code> 文件夹下有个 <code>.step</code> 文件，用于记录更新器执行到第几步了。不同的版本中「下载」所对应的步骤也不同，请根据你的版本进行更改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 14.0 以下</span></span><br><span class="line">&#123;“state”:”start”,”step”:5&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 14.0 及以上</span></span><br><span class="line">&#123;“state”:”start”,”step”:4&#125;</span><br></pre></td></tr></table></figure>
+<p>我们需要更改为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 14.0 以下</span></span><br><span class="line">&#123;“state”:”stop”,”step”:6&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 14.0 及以上</span></span><br><span class="line">&#123;“state”:”stop”,”step”:5&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-继续更新"><a href="#4-继续更新" class="headerlink" title="4.继续更新"></a>4.继续更新</h4><p>此时再开始更新，就会自动跳过下载升级包的过程，然后按照正常更新步骤操作即可。我们可以选择命令行或者浏览器更新</p>
+<p><strong>命令行更新（推荐）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u www-data php nextcloud/updater/updater.phar</span><br></pre></td></tr></table></figure>
+<p>出现提示只需要回车即可</p>
+<p><strong>通过浏览器更新</strong></p>
+<p>因为网站现在处于维护模式，此时网站是打不开的，我们需要先关闭维护模式才能访问网站</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭维护模式</span></span><br><span class="line">sudo -u www-data php nextcloud/occ maintenance:mode --off</span><br></pre></td></tr></table></figure>
+<p>访问设置页面，继续运行更新器，接下来只需按照正常更新步骤即可</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;因为 nextcloud 官方服务器从国内访问特别慢，在更新时经常会卡在下载升级包的过程中，因此需要手动下载升级包并更新。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="nextcloud" scheme="http://kongfangyu.com/tags/nextcloud/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 Docker 部署 Node.js 项目</title>
