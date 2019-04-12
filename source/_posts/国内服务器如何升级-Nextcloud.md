@@ -1,9 +1,9 @@
 title: 国内服务器如何升级 Nextcloud
 date: 2019-04-12 14:44:16
-tags:[nextcloud]
+tags: [nextcloud]
 ---
-
 因为 nextcloud 官方服务器从国内访问特别慢，在更新时经常会卡在下载升级包的过程中，因此需要手动下载升级包并更新。
+<!-- more -->
 
 #### 1. 打开更新器
 
