@@ -6,7 +6,7 @@ tags: [webpack]
 [webpack][2]是最近非常流行的一个模块加载器，它不仅能够像`require.js`一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。
 <!-- more -->
 
-# 安装webpack
+## 安装webpack
 
 
 ----------
@@ -18,7 +18,7 @@ tags: [webpack]
 `npm install webpack --save-dev`
 
 
-# 目录结构
+## 目录结构
 
 
 ----------
@@ -36,12 +36,12 @@ tags: [webpack]
 └── package.json        
 ```
 
-# 一个简单的webpack
+## 一个简单的webpack
 
 
 ----------
 
-## 配置webpack
+### 配置webpack
 webpack使用`webpack.config.js`文件进行项目配置，所以我们需要在项目的根目录下创建这个文件， 一个简单的配置文件如下：
 ``` javascript
 //webpack.config.js
@@ -59,7 +59,7 @@ module.exports = {
     },
 };
 ```
-## 启动webpack
+### 启动webpack
 命令行
 ```
 webpack           //最基本的webpack启动方法
@@ -71,7 +71,7 @@ webpack -d        //让他生成SourceMaps，方便调试
 之后在html文件中引入就行
 `<script src="./dist/bundle.js"></script>`
 
-# 配置loaders
+## 配置loaders
 
 
 ----------
@@ -79,7 +79,7 @@ webpack -d        //让他生成SourceMaps，方便调试
 
 webpack提供了许多的loader用于加载不同的文件，这也是webpack的强大之处，有了这些loader，我们就可以使用最新的ES6/7语法写js，用SASS/LESS写css。下面介绍我常用的loader，更多的loader[查看这里][4]。
 
-## 加载JS文件
+### 加载JS文件
 ES6已经发布了有些时间了，新的ES7也正在制定中。作为新时代的好青年，我们怎能不去试试新的东西，只是目前的大多数浏览器对于ES6的支持并不完善，为此我们需要使用babel将ES6转换成ES5。关于ES6的教程，可以参考阮一峰的[《ECMAScript6入门》][5]。
 我在项目中通常会使用bower管理插件，所以还需要将bower_components添加到搜索路径中，并使用插件从**bower.json**文件中指定main属性作为插件的入口。
 安装babel相关的包
@@ -119,7 +119,7 @@ plugins: [
 ]
 ```
 
-## 加载样式文件
+### 加载样式文件
 为了加载css文件我们需要使用`style-loader`和`css-loader`
 `npm install style-loader css-loader --save-dev`
 作为一名sass爱好者，脱离了sass写样式就各种不舒服斯基，因此我们需要`sass-loader`
@@ -134,10 +134,12 @@ plugins: [
     loader: 'style!css!autoprefixer?browsers=last 2 version!sass'
 }
 ```
+
 当我们使用`require('../scss/style.scss')`加载样式文件时，则会将样式文件直接使用`<style>`标签插入到HTML文件中，不过有的时候我们可能还是希望将样式作为css文件导出，病使用`<link>`引入，这时候就需要插件配合了。
 安装插件
 `npm install extract-text-webpack-plugin --save-dev`
 将插件添加到配置文件中
+
 ``` javascript
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 //...省略其它代码
@@ -148,8 +150,11 @@ plugins: [
         new ExtractTextPlugin("[name].css")
     ]
 ```
+
 在ExtractTextPlugin的extract方法有两个参数，第一个参数是经过编译后通过`style-loader`单独提取出文件来，而第二个参数就是用来编译代码的loader。
+
 如果需要将所有样式文件打包成一个文件，加一个参数即可。
+
 `new ExtractTextPlugin("style.css", {allChunks: true})`
 ##加载图片资源
 对于webpack来说，所有的资源都是可以作为模块加载的，图片也是一样。
@@ -163,15 +168,16 @@ var img = document.createElement("img");
 img.src = require('../images/xxx.png');
 ```
 
-#其它
+## 其它
 
 
 ----------
 
 
-## 多个入口
+### 多个入口
 有时候我们可能一个项目中有着许多的页面，每个页面加载相对应的JS文件，这时候我们就需要添加多个入口文件
-```
+
+```javascript
 //webpack.config.js
 
 module.exports = {
@@ -186,9 +192,12 @@ module.exports = {
 };
 ```
 这样就会为每个入口都生成对应构建好的文件，index页面就是`index.bundel.js`。
-##使用别名
+
+### 使用别名
+
 引入文件的时候需要写出那个文件所在的路径，对于一些目录结构复杂的项目可能会比较麻烦，这时候我们就可以给文件夹取个别名。
-```
+
+```javascript
 //webpack.config.js
 var path = require('path');
 
@@ -200,11 +209,16 @@ resolve: {
         }
     },
 ```
+
 使用前我们是这样引入样式的
 `require('../scss/style.scss')'`
+
 使用后是这样
+
 `require('scss/style.scss')`
-## 代码压缩
+
+### 代码压缩
+
 当代码用于生产环境时，通常都要对代码进行压缩，以减少文件体积。webpack提供了**UglifyJsPlugin**用于压缩、混淆代码。
 
 ```javascript
@@ -219,14 +233,15 @@ plugins: [
 ]
 ```
 
-# 尾巴
+## 尾巴
 
 
 ----------
 
 
 最后给出一个完整的wepack配置文件作为参考
-```
+
+```javascript
 var path = require('path');
 var webpack = require('webpack');
 
@@ -286,7 +301,7 @@ module.exports = {
 ```
 
 
-  [1]: https://ws1.sinaimg.cn/large/9ed8a4b8gy1fy0dhahy2kj2206103tl6.jpg
+  [1]: webpack-learning/9ed8a4b8gy1fy0dhahy2kj2206103tl6.jpg
   [2]: https://webpack.github.io/
   [3]: https://nodejs.org
   [4]: http://webpack.github.io/docs/list-of-loaders.html
