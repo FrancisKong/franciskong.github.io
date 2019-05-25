@@ -123,5 +123,5 @@ var name = 'frank';
  - [深入理解JavaScript的变量作用域](http://www.cnblogs.com/rainman/archive/2009/04/28/1445687.html#m5)
  - [JavaScript Hoisting   Explained](http://code.tutsplus.com/tutorials/quick-tip-javascript-hoisting-explained--net-15092)
 
-  [1]: js-scope/9ed8a4b8gy1fy0dha4h99j20g0063t8l.jpg
-  [2]: js-scope/9ed8a4b8gy1fy0dha64stj20iy0cgt8r.jpg
+  [1]: https://i.loli.net/2019/05/25/5ce8b79949c9324607.jpg
+  [2]: https://i.loli.net/2019/05/25/5ce8b79949c9324607.jpg

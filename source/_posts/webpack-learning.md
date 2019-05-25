@@ -3,6 +3,7 @@ date: 2015-12-27 19:36:48
 tags: [webpack]
 ---
 ![此处输入图片的描述][1]
+
 [webpack][2]是最近非常流行的一个模块加载器，它不仅能够像`require.js`一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。
 <!-- more -->
 
@@ -211,7 +212,7 @@ resolve: {
 ```
 
 使用前我们是这样引入样式的
-`require('../scss/style.scss')'`
+`require('../scss/style.scss')`
 
 使用后是这样
 
@@ -301,7 +302,7 @@ module.exports = {
 ```
 
 
-  [1]: webpack-learning/9ed8a4b8gy1fy0dhahy2kj2206103tl6.jpg
+  [1]: https://i.loli.net/2019/05/25/5ce8b83a0e9e545797.jpg
   [2]: https://webpack.github.io/
   [3]: https://nodejs.org
   [4]: http://webpack.github.io/docs/list-of-loaders.html

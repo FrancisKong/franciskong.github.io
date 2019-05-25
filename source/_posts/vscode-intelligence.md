@@ -35,5 +35,5 @@ tags: [visual stuio code,node.js,智能提示]
 选择后vsc就会将下载的`.d.ts`文件放在`.typings`文件夹中，然后就可以尽情的敲代码了。
 
 
-  [1]: vscode-intelligence/9ed8a4b8gy1fy0dha4ywtj208301ea9y.jpg
-  [2]: vscode-intelligence/9ed8a4b8gy1fy0dha8159j20dd02ejry.jpg
+[1]: https://i.loli.net/2019/05/25/5ce8b7d89f87737290.jpg
+[2]: https://i.loli.net/2019/05/25/5ce8b7d9cff8b78420.jpg
