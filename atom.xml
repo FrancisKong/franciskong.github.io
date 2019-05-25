@@ -248,9 +248,10 @@
     <link href="http://kongfangyu.com/2015/12/27/webpack-learning/"/>
     <id>http://kongfangyu.com/2015/12/27/webpack-learning/</id>
     <published>2015-12-27T11:36:48.000Z</published>
-    <updated>2019-05-07T02:47:30.084Z</updated>
+    <updated>2019-05-25T03:37:30.653Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="webpack-learning/9ed8a4b8gy1fy0dhahy2kj2206103tl6.jpg" alt="此处输入图片的描述"><br><a href="https://webpack.github.io/" target="_blank" rel="noopener">webpack</a>是最近非常流行的一个模块加载器，它不仅能够像<code>require.js</code>一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p><img src="https://i.loli.net/2019/05/25/5ce8b83a0e9e545797.jpg" alt="此处输入图片的描述"></p>
+<p><a href="https://webpack.github.io/" target="_blank" rel="noopener">webpack</a>是最近非常流行的一个模块加载器，它不仅能够像<code>require.js</code>一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。<br><a id="more"></a></p>
 <h2 id="安装webpack"><a href="#安装webpack" class="headerlink" title="安装webpack"></a>安装webpack</h2><hr>
 <p>首先需要安装<a href="https://nodejs.org" target="_blank" rel="noopener">Node.js</a><br>初始化项目（这里会要求你回答一系列问题，如果不在意可以一路回车）：<br><code>npm init</code><br>安装webpack，并将依赖关系添加到<code>package.json</code>:<br><code>npm install webpack --save-dev</code></p>
 <h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><hr>
@@ -278,7 +279,7 @@
 <p>这样就会为每个入口都生成对应构建好的文件，index页面就是<code>index.bundel.js</code>。</p>
 <h3 id="使用别名"><a href="#使用别名" class="headerlink" title="使用别名"></a>使用别名</h3><p>引入文件的时候需要写出那个文件所在的路径，对于一些目录结构复杂的项目可能会比较麻烦，这时候我们就可以给文件夹取个别名。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line">resolve: &#123;</span><br><span class="line">        alias: &#123;</span><br><span class="line">            js: path.join(__dirname, <span class="string">"src/js"</span>),</span><br><span class="line">            scss: path.join(__dirname, <span class="string">'src/scss'</span>),</span><br><span class="line">            img: path.join(__dirname, <span class="string">'src/iamges'</span>),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
-<p>使用前我们是这样引入样式的<br><code>require(&#39;../scss/style.scss&#39;)&#39;</code></p>
+<p>使用前我们是这样引入样式的<br><code>require(&#39;../scss/style.scss&#39;)</code></p>
 <p>使用后是这样</p>
 <p><code>require(&#39;scss/style.scss&#39;)</code></p>
 <h3 id="代码压缩"><a href="#代码压缩" class="headerlink" title="代码压缩"></a>代码压缩</h3><p>当代码用于生产环境时，通常都要对代码进行压缩，以减少文件体积。webpack提供了<strong>UglifyJsPlugin</strong>用于压缩、混淆代码。</p>
@@ -290,7 +291,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;webpack-learning/9ed8a4b8gy1fy0dhahy2kj2206103tl6.jpg&quot; alt=&quot;此处输入图片的描述&quot;&gt;&lt;br&gt;&lt;a href=&quot;https://webpack.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;webpack&lt;/a&gt;是最近非常流行的一个模块加载器，它不仅能够像&lt;code&gt;require.js&lt;/code&gt;一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。&lt;br&gt;
+      &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/05/25/5ce8b83a0e9e545797.jpg&quot; alt=&quot;此处输入图片的描述&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://webpack.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;webpack&lt;/a&gt;是最近非常流行的一个模块加载器，它不仅能够像&lt;code&gt;require.js&lt;/code&gt;一样，能够加载js文件，还能加载css,png等文件。在某些时候，也能够替代gulp，grunt等自动构建工具，功能可以说是非常强大。不过功能强大的同时学习曲线也很陡峭，花了很长的时间才得以入门，在这里分享一下我的经验，如有不足之处还请指出。&lt;br&gt;
     
     </summary>
     
@@ -380,7 +382,7 @@
     <link href="http://kongfangyu.com/2015/09/21/vscode-intelligence/"/>
     <id>http://kongfangyu.com/2015/09/21/vscode-intelligence/</id>
     <published>2015-09-21T13:25:28.000Z</published>
-    <updated>2019-05-07T02:52:17.755Z</updated>
+    <updated>2019-05-25T03:36:07.361Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
 <p>最近一直在使用<a href="https://www.visualstudio.com/" target="_blank" rel="noopener">visual studio code(以下简称vsc)</a>作为我的主力编辑器，不过最近在使用vsc写node.js代码时却碰到了一个问题：竟然没有智能提示！！！对于我这种离开智能提示就写不出代码的人简直不能忍，于是赶紧去官网查了一下文档。原来vsc使用的是 <strong>TypeScript definition</strong> 文件为vsc提供基于JavaScript框架的智能提示以及在使用错误的API时的警告。<br><a id="more"></a><br><br></p>
@@ -391,7 +393,7 @@
 <li>在项目的根目录中安装node.js的<code>.d.ts</code>文件：<code>tsd query node --action install</code></li>
 <li>安装后你就会发现在你的目录中多了一个<code>.typings</code>文件夹，这个文件夹中就是下载的<code>.d.ts</code>文件，最后在相应的文件中引入node.js的<code>.d.ts</code>文件：<br><code>/// &lt;reference path=&quot;typings/node/node.d.ts&quot;/&gt;</code></li>
 </ol>
-<p><strong>更简单的方法</strong><br>如果每次都需要去下载再引入文件也太麻烦，vsc也给我们提供一个简便的方法，我们可以在敲下对应的Framework,Runtime的全局变量后(例如node.js的<code>__dirname</code>,Angular的<code>angular</code>)，再按下<code>ctrl+k</code>就会出现下面的黄色小灯泡。<br><img src="vscode-intelligence/9ed8a4b8gy1fy0dha4ywtj208301ea9y.jpg" alt=""><br>点击灯泡后就会出现相应下载选项<br><img src="vscode-intelligence/9ed8a4b8gy1fy0dha8159j20dd02ejry.jpg" alt=""><br>选择后vsc就会将下载的<code>.d.ts</code>文件放在<code>.typings</code>文件夹中，然后就可以尽情的敲代码了。</p>
+<p><strong>更简单的方法</strong><br>如果每次都需要去下载再引入文件也太麻烦，vsc也给我们提供一个简便的方法，我们可以在敲下对应的Framework,Runtime的全局变量后(例如node.js的<code>__dirname</code>,Angular的<code>angular</code>)，再按下<code>ctrl+k</code>就会出现下面的黄色小灯泡。<br><img src="https://i.loli.net/2019/05/25/5ce8b7d89f87737290.jpg" alt=""><br>点击灯泡后就会出现相应下载选项<br><img src="https://i.loli.net/2019/05/25/5ce8b7d9cff8b78420.jpg" alt=""><br>选择后vsc就会将下载的<code>.d.ts</code>文件放在<code>.typings</code>文件夹中，然后就可以尽情的敲代码了。</p>
 ]]></content>
     
     <summary type="html">
@@ -501,7 +503,7 @@
     <link href="http://kongfangyu.com/2015/05/27/js-scope/"/>
     <id>http://kongfangyu.com/2015/05/27/js-scope/</id>
     <published>2015-05-27T12:14:26.000Z</published>
-    <updated>2019-05-07T02:54:14.240Z</updated>
+    <updated>2019-05-25T03:34:23.169Z</updated>
     
     <content type="html"><![CDATA[<p><br></p>
 <h1 id="JavaScript作用域"><a href="#JavaScript作用域" class="headerlink" title="JavaScript作用域"></a>JavaScript作用域</h1><hr>
@@ -522,7 +524,7 @@
 <li>在一个函数对象被调用的时候，会创建一个活动对象(activation object)，该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后对于每一个函数的形参，都命名为该活动对象的命名参数,然后将这个活动对象做为此时的作用域链(scope chain)最前端,并将这个函数对象的[[scope]]加入到scope chain中。<br>看个例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function func(arg) &#123;</span><br><span class="line">	alert(arg);</span><br><span class="line">&#125;</span><br><span class="line">func(&quot;hello world!&quot;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>在函数<code>func</code>创建时，它的作用域链会填入一个全局对象，该全局对象包含了所有变量，如下图所示(图片只例举了全部变量的一部分)：<br><img src="js-scope/9ed8a4b8gy1fy0dha4h99j20g0063t8l.jpg" alt=""><br>执行此函数时会创建一个称为“运行期上下文(execution context)”的内部对象，运行期上下文定义了函数执行时的环境。每个运行期上下文都有自己的作用域链，用于标识符解析，当运行期上下文被创建时，而它的作用域链初始化为当前运行函数的[[Scope]]所包含的对象。<br>这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中，它们共同组成了一个新的对象，叫“活动对象(activation object)”。该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁，新的作用域链如下图所示：<br><img src="js-scope/9ed8a4b8gy1fy0dha64stj20iy0cgt8r.jpg" alt=""><br>在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。</p>
+<p>在函数<code>func</code>创建时，它的作用域链会填入一个全局对象，该全局对象包含了所有变量，如下图所示(图片只例举了全部变量的一部分)：<br><img src="https://i.loli.net/2019/05/25/5ce8b79949c9324607.jpg" alt=""><br>执行此函数时会创建一个称为“运行期上下文(execution context)”的内部对象，运行期上下文定义了函数执行时的环境。每个运行期上下文都有自己的作用域链，用于标识符解析，当运行期上下文被创建时，而它的作用域链初始化为当前运行函数的[[Scope]]所包含的对象。<br>这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中，它们共同组成了一个新的对象，叫“活动对象(activation object)”。该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁，新的作用域链如下图所示：<br><img src="https://i.loli.net/2019/05/25/5ce8b79949c9324607.jpg" alt=""><br>在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。</p>
 <h1 id="JavaScript的声明提升"><a href="#JavaScript的声明提升" class="headerlink" title="JavaScript的声明提升"></a>JavaScript的声明提升</h1><hr>
 <p>可能有的资料中将声明提升(hoist)称为预编译，这是不准确的，<a href="http://zh.wikipedia.org/wiki/JavaScript" target="_blank" rel="noopener">维基百科</a>对JavaScript的特性也有说明:</p>
 <blockquote>
