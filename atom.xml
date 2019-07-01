@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kongfangyu.com/"/>
-  <updated>2019-07-01T08:51:57.833Z</updated>
+  <updated>2019-07-01T09:11:45.613Z</updated>
   <id>http://kongfangyu.com/</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="http://kongfangyu.com/2019/07/01/install-node-sass-failed-on-docker-container/"/>
     <id>http://kongfangyu.com/2019/07/01/install-node-sass-failed-on-docker-container/</id>
     <published>2019-07-01T08:50:57.000Z</published>
-    <updated>2019-07-01T08:51:57.833Z</updated>
+    <updated>2019-07-01T09:11:45.613Z</updated>
     
     <content type="html"><![CDATA[<p>最近因为电脑的存储空间不足，将 Docker 给重置了，删除了所有的容器及镜像，导致之前一个能够正常构建的前端项目，这次却因为 node-sass 无法安装而构建失败。</p>
+<a id="more"></a>
 <p>Dockerfile 如下</p>
 <figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:alpine</span><br><span class="line"></span><br><span class="line"><span class="comment"># install pm2 for serving the application</span></span><br><span class="line"><span class="keyword">RUN</span> yarn global add pm2</span><br><span class="line"></span><br><span class="line"># make the 'app' folder the current working directory</span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"># copy 'package.json' and 'yarn.lock'</span><br><span class="line">COPY package.json .</span><br><span class="line">COPY yarn.lock .</span><br><span class="line"></span><br><span class="line"># Set environment variables</span><br><span class="line">ENV SASS_BINARY_SITE https://npm.taobao.org/mirrors/node-sass/</span><br><span class="line"></span><br><span class="line"># install project dependencies</span><br><span class="line">RUN yarn install --prod --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line"># copy project files and folders to the current working directory</span><br><span class="line">COPY . .</span><br><span class="line"></span><br><span class="line"># build app for production with minification</span><br><span class="line">RUN yarn run build</span><br><span class="line"></span><br><span class="line"># Expose the listening port of your app</span><br><span class="line">EXPOSE 3000</span><br><span class="line"></span><br><span class="line">CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]</span><br></pre></td></tr></table></figure>
 <p>在执行 <code>Docker build .</code> 时出现错误</p>
@@ -38,8 +39,6 @@
     <summary type="html">
     
       &lt;p&gt;最近因为电脑的存储空间不足，将 Docker 给重置了，删除了所有的容器及镜像，导致之前一个能够正常构建的前端项目，这次却因为 node-sass 无法安装而构建失败。&lt;/p&gt;
-&lt;p&gt;Dockerfile 如下&lt;/p&gt;
-&lt;figure class=&quot;highlight do
     
     </summary>
     
