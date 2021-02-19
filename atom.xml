@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kongfangyu.com/"/>
-  <updated>2021-02-19T11:34:16.878Z</updated>
+  <updated>2021-02-19T11:41:00.149Z</updated>
   <id>http://kongfangyu.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://kongfangyu.com/2021/02/19/%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%96%87%E6%9C%AC%E5%8E%BB%E9%87%8D/"/>
     <id>http://kongfangyu.com/2021/02/19/大规模文本去重/</id>
     <published>2021-02-19T11:27:21.000Z</published>
-    <updated>2021-02-19T11:34:16.878Z</updated>
+    <updated>2021-02-19T11:41:00.149Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近接到一个需求，需要对300万的短文本进行去重，如果按照传统的方法一一比对，那就是$O(n^2)$复杂度。对于300万的数据来说，这个时间成本是不可接受的，因此需要一个合适的算法提高去重效率。在这里就用到了 MinHash 和 LSH（Locality-Sensitive Hashing），前者是将文本降维转换成哈希，后者是通过索引加快查找过程。</p>
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近接到一个需求，需要对300万的短文本进行去重，如果按照传统的方法一一比对，那就是$O(n^2)$复杂度。对于300万的数据来说，这个时间成本是不可接受的，因此需要一个合适的算法提高去重效率。在这里就用到了 MinHash 和 LSH（Locality-Sensitive Hashing），前者是将文本降维转换成哈希，后者是通过索引加快查找过程。<br><a id="more"></a></p>
 <h2 id="MinHash"><a href="#MinHash" class="headerlink" title="MinHash"></a>MinHash</h2><p>传统的 hash 算法将不同长度的字符串转化为相同长度的字符串，对于相似的内容，即使只差了一位，转化后的结果也是截然不同。</p>
 <p>MinHash 能够将相似的文本转化成相似的 hash</p>
 <p>MinHash 就是将行多次随机打乱，找出第一个非零行的索引序号，作为最小哈希值 $h(i)$</p>
@@ -139,7 +139,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;最近接到一个需求，需要对300万的短文本进行去重，如果按照传统的方法一一比对，那就是$O(n^2)$复杂度。对于300万的数据来说，这个时间
+      &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;最近接到一个需求，需要对300万的短文本进行去重，如果按照传统的方法一一比对，那就是$O(n^2)$复杂度。对于300万的数据来说，这个时间成本是不可接受的，因此需要一个合适的算法提高去重效率。在这里就用到了 MinHash 和 LSH（Locality-Sensitive Hashing），前者是将文本降维转换成哈希，后者是通过索引加快查找过程。&lt;br&gt;
     
     </summary>
     
