@@ -1,6 +1,6 @@
-title: Spark on K8S
+title: "Spark on K8S"
 date: 2021-02-26 11:33:29
-tags:[spark, kubernetes]
+tags: [spark, kubernetes]
 ---
 
 在将 Spark 部署到 K8S 集群中遇到了不少问题，因此记录下来，帮助自己回顾，也帮助大家少踩坑。

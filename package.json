@@ -6,6 +6,7 @@
     "version": "3.7.1"
   },
   "dependencies": {
+    "dtrace-provider": "^0.8.8",
     "global": "^4.3.2",
     "hexo": "^3.7.1",
     "hexo-cli": "^1.0.3",
