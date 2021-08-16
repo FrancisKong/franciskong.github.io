@@ -2,7 +2,7 @@ title: NAS 入坑记录（一）
 date: 2021-08-17 00:33:13
 tags: [nas]
 ---
-迫于美剧的版权太分散，订阅花费高，即使付费订阅了，也会面临 Disney+ 、 HBO Max 等平台没有中文字幕的问题。于是入手了一台四盘位的群晖 DS920+，用于畅快的追剧，也开始了 NAS 的入坑之旅。
+国外电视剧的版权太分散，看漫威系列需要订阅 Disney+，致命女人需要订阅 Amazon Prime Video，东城梦魇需要订阅 HBO。不但版权分散，国外的服务订阅费用也是相当高，并且即使付费订阅了，也会面临 Disney+ 、 HBO Max 等平台没有中文字幕的问题。迫于以上种种问题，入手了一台四盘位的群晖 DS920+，用于畅快的追剧，也开始了 NAS 的入坑之旅。
 
 ![heading@2x.png](https://res.craft.do/user/full/4f3a4bf3-c6fd-c665-25b1-3fad06bf658b/doc/34C17034-7677-4BDA-933D-2E4DF5C86DE2/1D51327C-B815-4353-A5A7-42BE288D6E2E_2/heading2x.png)
 
@@ -28,7 +28,7 @@ tags: [nas]
 
 ## 使用 iMazing 自动备份 iPhone
 
-iCloud 的备份体验虽好，但迫于贫穷，我只买了 50GB 的存储空间。开启了 iCloud 照片存储后就所剩不多了，根本无法用于手机备份。于是就想到利用新买的 NAS 备份手机，没想道还真有方案。简单来说就是利用群晖 Virtual Machine Manager 套件安装个 Windows 虚拟机，并在上面安装 iMazing，利用 iMazing 的 Wi-Fi 备份功能，实现自动备份。具体操作请参考下面这篇文章：
+iCloud 的备份体验虽好，但迫于贫穷，我只买了 50GB 的存储空间。开启了 iCloud 照片存储后就所剩不多了，根本无法用于手机备份。于是就想到利用新买的 NAS 备份手机，网上搜了一下还真有方案。简单来说就是利用群晖 Virtual Machine Manager 套件安装个 Windows 虚拟机，并在上面安装 iMazing，利用 iMazing 的 Wi-Fi 备份功能，实现自动备份。具体操作请参考下面这篇文章：
 
 [小技巧：使用 NAS 自动备份 iOS 设备 - 少数派](https://sspai.com/post/56897)
 
