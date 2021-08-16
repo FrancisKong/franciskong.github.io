@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>跨域方法总结 · 孔方宇的博客</title><meta name="description" content="跨域方法总结 - Francis"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://kongfangyu.com/atom.xml" title="孔方宇的博客"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-6349291495209825",
+  enable_page_level_ads: true
+});</script></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/FrancisKong" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">跨域方法总结</h1><div class="post-info">Mar 27, 2016</div><div class="post-content"><h2 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h2><hr>
+<p>跨域问题算是一个比较常见的问题，对于不同的场景也有着不同的方法进行跨域。不过，在此之前我们要先了解什么情况算作跨域。</p>
+<blockquote>
+<p>如果两个页面拥有相同的协议（protocol），端口（如果指定），和主机，那么这两个页面就属于同一个源（origin）。</p>
+</blockquote>
+<p>也就是如果上面3个条件只要有一个不一样就算作跨域，我们再结合具体的例子看下。<br>发出请求的地址：<a href="http://exampl.com/index.html，下表是目标地址及对应的结果和解释。" target="_blank" rel="noopener">http://exampl.com/index.html，下表是目标地址及对应的结果和解释。</a></p>
+<table>
+<thead>
+<tr>
+<th>url</th>
+<th style="text-align:center">结果</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://example.com/other.html" target="_blank" rel="noopener">http://example.com/other.html</a></td>
+<td style="text-align:center">成功</td>
+</tr>
+<tr>
+<td><a href="http://example.com/page/other.html" target="_blank" rel="noopener">http://example.com/page/other.html</a></td>
+<td style="text-align:center">成功</td>
+</tr>
+<tr>
+<td><a href="http://sub.example.com/index.html" target="_blank" rel="noopener">http://sub.example.com/index.html</a></td>
+<td style="text-align:center">失败</td>
+<td style="text-align:center">子域名不同</td>
+</tr>
+<tr>
+<td><a href="http://example.com:8080/index.html" target="_blank" rel="noopener">http://example.com:8080/index.html</a></td>
+<td style="text-align:center">失败</td>
+<td style="text-align:center">端口号不同</td>
+</tr>
+<tr>
+<td><a href="https://example.com/other.html" target="_blank" rel="noopener">https://example.com/other.html</a></td>
+<td style="text-align:center">失败</td>
+<td style="text-align:center">协议不同</td>
+</tr>
+<tr>
+<td><a href="http://0.0.0.0/other.html" target="_blank" rel="noopener">http://0.0.0.0/other.html</a></td>
+<td style="text-align:center">失败</td>
+<td style="text-align:center">域名和域名对应的ip</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h2 id="跨域解决方案"><a href="#跨域解决方案" class="headerlink" title="跨域解决方案"></a>跨域解决方案</h2><hr>
+<p>下面就来介绍一下跨域的解决方案，为了方便，所有的<code>AJAX</code>请求我都用<code>jQuery</code>发起。</p>
+<h3 id="跨域资源共享（CORS）"><a href="#跨域资源共享（CORS）" class="headerlink" title="跨域资源共享（CORS）"></a>跨域资源共享（CORS）</h3><p><code>CORS（Cross-Origin Resource Sharing）</code>跨域资源共享，定义了必须在访问跨域资源时，浏览器与服务器应该如何沟通。CORS背后的基本思想就是使用自定义的HTTP头让浏览器与服务器进行沟通，从而决定请求或响应是应该成功还是失败。<br>比如我们现在想要访问另一个网站<code>other.com</code>上的资源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.get(&apos;http://other.com&apos;, function() &#123;</span><br><span class="line">  // do something...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>服务器返回的资源需要有一个 Access-Control-Allow-Origin 头信息,语法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: &lt;origin&gt; | *</span><br></pre></td></tr></table></figure></p>
+<p>origin参数指定一个允许向该服务器提交请求的URI.对于一个不带有credentials的请求,可以指定为’*’,表示允许来自所有域的请求。<br>为了安全起见，我们最好是限制请求的来源，下面就是只允许<code>other.com</code>请求的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: http://other.com</span><br></pre></td></tr></table></figure></p>
+<h3 id="通过JSONP跨域"><a href="#通过JSONP跨域" class="headerlink" title="通过JSONP跨域"></a>通过JSONP跨域</h3><blockquote>
+<p>JSONP（JSON with Padding）是资料格式 JSON 的一种“使用模式”，可以让网页从别的网域要资料。</p>
+</blockquote>
+<p>简单来讲就是因为<code>&lt;script&gt;</code>标签不受同源策略限制，动态插入一个<code>&lt;script&gt;</code>标签，并在url中指定callback，然后服务端将数据作为参数传入callback中。所以JSONP是需要服务端进行配合的。<br><code>$.getJSON</code>方法会自动判断是否跨域，如果跨域就通过插入<code>&lt;script&gt;</code>标签的方式加载数据，否则就使用普通的<code>ajax</code>方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.getJSON(&apos;http://other.com/data?callback=mycallback&apos;, function(data) &#123;</span><br><span class="line">    // do something...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>服务端只需要将数据传入<code>mycallback</code>中即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mycallback(&#123; foo: &apos;bar&apos; &#125;);</span><br></pre></td></tr></table></figure></p>
+<p><code>JSONP</code>的缺点是只支持GET请求，对于POST之类的其它请求就不支持了。</p>
+<h2 id="跨域代理"><a href="#跨域代理" class="headerlink" title="跨域代理"></a>跨域代理</h2><hr>
+<p>通过上面的方法可以看出，要实现跨域交互，必须要对目标服务器有着控制权。不过有的时候我们可能需要获取其他网站的数据，那就只能通过架设服务器代理的方式进行跨域了。下面就推荐一些第三方代理，因为这些代理都是国外的，访问速度可能不太理想（国内还没找到类似的服务），所以有条件最好还是自己搭建服务器吧。<br>要注意的是第三方代理会存在安全性上的问题，<strong>请不要通过第三方代理传递重要数据！</strong></p>
+<h3 id="CORS-Anywhere"><a href="#CORS-Anywhere" class="headerlink" title="CORS Anywhere"></a>CORS Anywhere</h3><p>CORS Anywhere是一个通过添加CORS请求头实现跨域的<code>node.js</code>反向代理（<a href="https://github.com/Rob--W/cors-anywhere/" target="_blank" rel="noopener">GitHub地址</a>）<br>使用示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.get(<span class="string">'http://cors-anywhere.herokuapp.com/http://www.baidu.com'</span>), <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(res);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Whatever-Origin"><a href="#Whatever-Origin" class="headerlink" title="Whatever Origin"></a>Whatever Origin</h3><p>Whatever Origin是通过JSONP的方式实现跨域的（<a href="https://github.com/ripper234/Whatever-Origin" target="_blank" rel="noopener">GitHub地址</a>）。<br>使用示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.getJSON(<span class="string">'http://whateverorigin.org/get?url='</span> + <span class="built_in">encodeURIComponent</span>(<span class="string">'http://www.baidu.com'</span>) + <span class="string">'&amp;callback=?'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(data.contents);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="CORS-Proxy"><a href="#CORS-Proxy" class="headerlink" title="CORS Proxy"></a>CORS Proxy</h3><p>CORS Proxy和上面的不太一样，这是一个可以在你自己机器上方便使用的<code>node.js</code>代理，好处是使用自己的服务器访问速度快，安全性高，前提是你要拥有一台服务器，并在服务器上安装<code>node.js</code>（<a href="https://github.com/gr2m/CORS-Proxy" target="_blank" rel="noopener">GitHub地址</a>）。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/08/18/deploy-nodejs-application-with-docker/" class="prev">上一篇</a><a href="/2016/02/12/git-deploy/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'blog-ufftmpj92z';
+var disqus_identifier = '2016/03/27/cross-domain/';
+var disqus_title = '跨域方法总结';
+var disqus_url = 'http://kongfangyu.com/2016/03/27/cross-domain/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//blog-ufftmpj92z.disqus.com/count.js" async></script><div class="copyright"><p>© 2018 - 2021 <a href="http://kongfangyu.com">Francis</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-63429467-1",'auto');ga('send','pageview');</script></body></html>

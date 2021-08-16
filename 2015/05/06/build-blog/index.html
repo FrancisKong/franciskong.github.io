@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>使用Hexo搭建博客 · 孔方宇的博客</title><meta name="description" content="使用Hexo搭建博客 - Francis"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://kongfangyu.com/atom.xml" title="孔方宇的博客"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-6349291495209825",
+  enable_page_level_ads: true
+});</script></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/FrancisKong" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">使用Hexo搭建博客</h1><div class="post-info">May 6, 2015</div><div class="post-content"><p><br></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
+<p>一直想要搭建一个自己的博客，但直到最近接触<a href="https://github.com" target="_blank" rel="noopener">GitHub</a>才知道能够在<a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>上搭建静态博客，这篇文章就是我搭建个人博客的一些记录。<br><br><br><a id="more"></a></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><hr>
+<p>1.<a href="http://cnfeat.com/2014/05/10/2014-05-11-how-to-build-a-blog/" target="_blank" rel="noopener">如何搭建一个独立博客</a><br>2.<a href="http://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo官方文档</a><br><br></p>
+<h1 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h1><hr>
+<p>　　搭建过程主要是参考上面链接，链接中的资料已经非常全了，从环境搭建到文章发布全都有了，所以我就不再细说了，这篇文章主要记录一下我在搭建过程中碰到的一些问题。<br><br></p>
+<h1 id="Hexo配置问题"><a href="#Hexo配置问题" class="headerlink" title="Hexo配置问题"></a>Hexo配置问题</h1><hr>
+<p>　　在配置Hexo的_config.yml文件后，然后运行<code>hexo d</code>部署项目时却碰到<code>deployer not found github</code>错误，按照参考资料上写的是</p>
+<pre><code>deploy:
+  type: github
+  repository: github.com/cnfeat/cnfeat.github.io.git
+  branch: master    
+</code></pre><p>  但这样配置却无法顺利部署，于是只好求助度娘了，度娘给出的解决方法是将<code>type:github</code>改成<code>type:git</code>,并运行如下命令<code>npm install hexo-deployer-git --save</code>再重新部署一下就可以了。<br> <br></p>
+<h1 id="加入多说评论"><a href="#加入多说评论" class="headerlink" title="加入多说评论"></a>加入多说评论</h1><hr>
+<p>一个博客自然是要有评论系统，国内的博客大多都是用<a href="http://duoshuo.com/" target="_blank" rel="noopener">多说</a>来作为自己博客的评论系统。但在配置的时候根据主题的官方文档说明是在_config.yml中加入<code>duoshuo:duoshuo_shortname</code>，但是我并不知道<code>short_name</code>到底是指什么，为此搜索了很久也没有结果，只能一个个试了，试出来的结果是多说域名上的名字，例如我的是多说域名是：franciskong.duoshuo.com，那么就是填写<code>duoshuo:franciskong</code>。<br><br></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><hr>
+<p>我在搭建过程中主要就是碰到了这两个问题，其他的小问题都非常容易解决，总的来说使用Hexo搭建博客还是非常便捷的。因为最近要准备事情比较多，没有足够的时间去写页面代码，所以博客使用的是<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">yilia</a>主题，页面这个坑就留给自己以后有空去填吧。         </p>
+</div></article></div></main><footer><div class="paginator"><a href="/2015/05/12/baidu-ife-task1/" class="prev">上一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'blog-ufftmpj92z';
+var disqus_identifier = '2015/05/06/build-blog/';
+var disqus_title = '使用Hexo搭建博客';
+var disqus_url = 'http://kongfangyu.com/2015/05/06/build-blog/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//blog-ufftmpj92z.disqus.com/count.js" async></script><div class="copyright"><p>© 2018 - 2021 <a href="http://kongfangyu.com">Francis</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-63429467-1",'auto');ga('send','pageview');</script></body></html>

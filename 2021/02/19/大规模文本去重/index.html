@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>大规模短文本去重 · 孔方宇的博客</title><meta name="description" content="大规模短文本去重 - Francis"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://kongfangyu.com/atom.xml" title="孔方宇的博客"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: "ca-pub-6349291495209825",
+  enable_page_level_ads: true
+});</script></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/FrancisKong" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">大规模短文本去重</h1><div class="post-info">Feb 19, 2021</div><div class="post-content"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近接到一个需求，需要对300万的短文本进行去重，如果按照传统的方法一一比对，那就是$O(n^2)$复杂度。对于300万的数据来说，这个时间成本是不可接受的，因此需要一个合适的算法提高去重效率。在这里就用到了 MinHash 和 LSH（Locality-Sensitive Hashing），前者是将文本降维转换成哈希，后者是通过索引加快查找过程。<br><a id="more"></a></p>
+<h2 id="MinHash"><a href="#MinHash" class="headerlink" title="MinHash"></a>MinHash</h2><p>传统的 hash 算法将不同长度的字符串转化为相同长度的字符串，对于相似的内容，即使只差了一位，转化后的结果也是截然不同。</p>
+<p>MinHash 能够将相似的文本转化成相似的 hash</p>
+<p>MinHash 就是将行多次随机打乱，找出第一个非零行的索引序号，作为最小哈希值 $h(i)$</p>
+<p>假设我们这里有三个文本（假设a、b、c、d是四个不同的词）:</p>
+<p>S1 = abcd</p>
+<p>S2 = bcd</p>
+<p>S3 = ad</p>
+<p>我们用一个特征矩阵来表示比较直观一点：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>S1</th>
+<th>S2</th>
+<th>S3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>b</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>c</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>d</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>可以用如下3步来简单理解如何生成hash：</p>
+<p>1）将行随机打乱。</p>
+<p>2）行打乱后，针对每个S1、S2、S3看第一个1所在的行号，这个行号就是这个集合的最小哈希值。</p>
+<p>3）设定hash的大小，如果是N，则重复上述步骤，随机进行N次行打乱，得到N个最小哈希值，那么这N个最小哈希值组成的集合就是S1、S2、S3对应的哈希签名。</p>
+<p>为什么要进行行变换使用第一个1所在的行号作为最小哈希值呢，这样生成的哈希有什么意义呢？</p>
+<p>我的理解是，这近似于一种抽样方法，用少数的哈希值来代替原本稀疏的特征矩阵，至于用第一个1所在的行号作为最小哈希的原因在于行号一样的集合原本的特征值都是1，这样得到哈希值也是一样，那么两个相似的文本得到的哈希在很大程度上就具有相似性，即解决了传统的hash算法存在的相似文本得到差别很大的哈希的问题。</p>
+<p>我们直接看例子：</p>
+<p>基于上述的矩阵，我们进行第一次行变换得到如下新矩阵（行号从0开始算）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>S1</th>
+<th>S2</th>
+<th>S3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>b</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>c</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>a</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>d</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>那么对于S1来说，顺着行号往下走，发现第一个1所在的行号是0，那么h(S1) = 0，依次类推，h(S2) = 0， h(S3) = 2。</p>
+<h2 id="局部敏感哈希算法（Locality-Sensitive-Hashing）"><a href="#局部敏感哈希算法（Locality-Sensitive-Hashing）" class="headerlink" title="局部敏感哈希算法（Locality Sensitive Hashing）"></a>局部敏感哈希算法（Locality Sensitive Hashing）</h2><p>MinHash 只是将文本转换成了 hash 值，并没有减少比较的次数，当数据量大的时候依然很消耗时间，所以在这里就需要用到<strong>局部敏感哈希算法（LSH）</strong></p>
+<p>LSH是一种基于 MinHash 的加速索引算法，建立一种新的索引</p>
+<p>其基于思想：如果将两个向量以相同方法划分若干段，如果这两个向量相似，那么他们被划分出的对应若干段中存在某段完全相同（=段中每维完全相同=hash值相同=被分到同一个hash分桶）的概率也很高；同理不相似的向量，其哈希值只有很小的概率是相同的。那么我们就可以只比较可能相似的样本，不太可能相似的样本就不比较，这样就减小了比较次数</p>
+<p>LSH具体地算法是：</p>
+<p>1.将每个原向量（一个数据点）通过min-hash得到的hash签名（下称：向量），划分为b段，每段有r行</p>
+<p><img src="https://i.loli.net/2021/02/19/I9HlJQr1PigKVyo.jpg" alt="15873032951599.jpg"></p>
+<p>如图矩阵 $M$ ,每一列代表一个向量，每一行就是一个向量的维度，$r$ 个维度（行）组成一个段</p>
+<p>2.对每行的每个段进行 hash 映射，不同样本（竖）的该段截取的部分段向量（横）如果相同就会被映射到一个桶中。</p>
+<p>（每一行可以使用相同的 hash 函数，但是每一行各段都是被映射到不同的数组的，数组里的每一个元素就是桶）</p>
+<p><img src="https://i.loli.net/2021/02/19/h8LiWQDBeby6JKZ.jpg" alt="15873033405909.jpg"></p>
+<p>3.我们应用一个假设：我们称每个段的每一个桶内，即不同样本中<strong>至少有一个段相同（=hash值相同=被分到同一个hash分桶）</strong>的样本为候选相似样本。通过下面的证明可得，我们<strong>只对候选相似样本进行比较，便可以以极大概率找到所有可能相似样本</strong>。</p>
+<p>假设的证明：我们假设 AB 两个样本相似度为a，那么将A、B分成b段，每段r行。那么A、B在某段里，每一行的相似概率就为 $a^r$， 那么A、B在该段每一行都不相似的概率就为 $1−a^r$ ，A、B所有段都不同的概率为$(1−a^r)b$ ，A、B至少有一个段相似的概率为 $1−(1−a^r)b$ ，最后这个式子就是两个样本可能相似的概率</p>
+<p>理解名字：“局部敏感哈希”，这个局部就是指的这个分段。如果两个向量局部相同，根据上面证明，那么两个向量可能相似的概率就远远大于不可能相似的概率。</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><p>测试机器：MacBook Pro (15-inch, 2016)</p>
+<p><strong>MinHash 生成性能</strong></p>
+<p>测试数据：300万条数据<br>耗时：30分钟</p>
+<p><strong>LSH 建立索引</strong></p>
+<p>测试数据：300万条数据<br>耗时：5分钟</p>
+<p><strong>LSH 查询性能：</strong></p>
+<p>测试数据：300万条数据<br>耗时：5分钟</p>
+<p><strong>提示：</strong></p>
+<p>在生成 hash 的过程中，文本长度会对性能有着明显的影响，如果准确度要求不是很高，可以截取固定长度的文本。</p>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://aisakaki.com/2019/12/04/%E5%B1%80%E9%83%A8%E6%95%8F%E6%84%9F%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/" target="_blank" rel="noopener">大数据相似度计算：局部敏感哈希算法</a><br><a href="http://ekzhu.com/datasketch/documentation.html" target="_blank" rel="noopener">Datasketch - Python实现</a></p>
+</div></article></div></main><footer><div class="paginator"><a href="/2021/02/26/spark-on-k8s/" class="prev">上一篇</a><a href="/2019/07/01/install-node-sass-failed-on-docker-container/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'blog-ufftmpj92z';
+var disqus_identifier = '2021/02/19/大规模文本去重/';
+var disqus_title = '大规模短文本去重';
+var disqus_url = 'http://kongfangyu.com/2021/02/19/大规模文本去重/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//blog-ufftmpj92z.disqus.com/count.js" async></script><div class="copyright"><p>© 2018 - 2021 <a href="http://kongfangyu.com">Francis</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-63429467-1",'auto');ga('send','pageview');</script></body></html>
